@@ -688,14 +688,14 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
         toggleInputMethod();
     }
 
-    private void attachImageToConversation(Conversation conversation, Uri uri) {
+    private void attachImageToConversation(Conversation conversation, Uri uri, String type) {
         if (conversation == null) {
             return;
         }
         final Toast prepareFileToast = Toast.makeText(getActivity(), getText(R.string.preparing_image), Toast.LENGTH_LONG);
         prepareFileToast.show();
         activity.delegateUriPermissionsToService(uri);
-        activity.xmppConnectionService.attachImageToConversation(conversation, uri,
+        activity.xmppConnectionService.attachImageToConversation(conversation, uri, type,
                 new UiCallback<Message>() {
 
                     @Override
@@ -856,9 +856,15 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                 toggleInputMethod();
                 break;
             case ATTACHMENT_CHOICE_LOCATION:
-                double latitude = data.getDoubleExtra("latitude", 0);
-                double longitude = data.getDoubleExtra("longitude", 0);
-                Uri geo = Uri.parse("geo:" + latitude + "," + longitude);
+                final double latitude = data.getDoubleExtra("latitude", 0);
+                final double longitude = data.getDoubleExtra("longitude", 0);
+                final int accuracy = data.getIntExtra("accuracy", 0);
+                final Uri geo;
+                if (accuracy > 0) {
+                    geo = Uri.parse(String.format("geo:%s,%s;u=%s", latitude, longitude, accuracy));
+                } else {
+                    geo = Uri.parse(String.format("geo:%s,%s", latitude, longitude));
+                }
                 mediaPreviewAdapter.addMediaPreviews(Attachment.of(getActivity(), geo, Attachment.Type.LOCATION));
                 toggleInputMethod();
                 break;
@@ -889,7 +895,7 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                     attachLocationToConversation(conversation, attachment.getUri());
                 } else if (attachment.getType() == Attachment.Type.IMAGE) {
                     Log.d(Config.LOGTAG, "ConversationsActivity.commitAttachments() - attaching image to conversations. CHOOSE_IMAGE");
-                    attachImageToConversation(conversation, attachment.getUri());
+                    attachImageToConversation(conversation, attachment.getUri(), attachment.getMime());
                 } else {
                     Log.d(Config.LOGTAG, "ConversationsActivity.commitAttachments() - attaching file to conversations. CHOOSE_FILE/RECORD_VOICE/RECORD_VIDEO");
                     attachFileToConversation(conversation, attachment.getUri(), attachment.getMime());
@@ -2186,13 +2192,14 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
         final boolean asQuote = extras.getBoolean(ConversationsActivity.EXTRA_AS_QUOTE);
         final boolean pm = extras.getBoolean(ConversationsActivity.EXTRA_IS_PRIVATE_MESSAGE, false);
         final boolean doNotAppend = extras.getBoolean(ConversationsActivity.EXTRA_DO_NOT_APPEND, false);
+        final String type = extras.getString(ConversationsActivity.EXTRA_TYPE);
         final List<Uri> uris = extractUris(extras);
         if (uris != null && uris.size() > 0) {
             if (uris.size() == 1 && "geo".equals(uris.get(0).getScheme())) {
                 mediaPreviewAdapter.addMediaPreviews(Attachment.of(getActivity(), uris.get(0), Attachment.Type.LOCATION));
             } else {
                 final List<Uri> cleanedUris = cleanUris(new ArrayList<>(uris));
-                mediaPreviewAdapter.addMediaPreviews(Attachment.of(getActivity(), cleanedUris));
+                mediaPreviewAdapter.addMediaPreviews(Attachment.of(getActivity(), cleanedUris, type));
             }
             toggleInputMethod();
             return;

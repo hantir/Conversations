@@ -114,7 +114,7 @@ public class EnterJidDialog extends DialogFragment implements OnBackendConnected
 		} else {
 			ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
 					R.layout.simple_list_item,
-					new String[]{account});
+					new String[]{account.split("@")[0]});
 			binding.account.setEnabled(false);
 			adapter.setDropDownViewResource(R.layout.simple_list_item);
 			binding.account.setAdapter(adapter);

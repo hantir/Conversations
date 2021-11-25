@@ -2305,9 +2305,12 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
         } else if (conversation.isBlocked()) {
             showSnackbar(R.string.contact_blocked, R.string.unblock, this.mUnblockClickListener);
         } else if (contact != null && !contact.showInRoster() && contact.getOption(Contact.Options.PENDING_SUBSCRIPTION_REQUEST)) {
-            showSnackbar(R.string.contact_added_you, R.string.add_back, this.mAddBackClickListener, this.mLongPressBlockListener);
+            //showSnackbar(R.string.contact_added_you, R.string.add_back, this.mAddBackClickListener, this.mLongPressBlockListener);
+            activity.xmppConnectionService.createContact(contact, true);
         } else if (contact != null && contact.getOption(Contact.Options.PENDING_SUBSCRIPTION_REQUEST)) {
-            showSnackbar(R.string.contact_asks_for_presence_subscription, R.string.allow, this.mAllowPresenceSubscription, this.mLongPressBlockListener);
+            //showSnackbar(R.string.contact_asks_for_presence_subscription, R.string.allow, this.mAllowPresenceSubscription, this.mLongPressBlockListener);
+            activity.xmppConnectionService.sendPresencePacket(contact.getAccount(), activity.xmppConnectionService.getPresenceGenerator().sendPresenceUpdatesTo(contact));
+            hideSnackbar();
         } else if (mode == Conversation.MODE_MULTI
                 && !conversation.getMucOptions().online()
                 && account.getStatus() == Account.State.ONLINE) {
@@ -2367,13 +2370,13 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
             }
         } else if (account.hasPendingPgpIntent(conversation)) {
             showSnackbar(R.string.openpgp_messages_found, R.string.decrypt, clickToDecryptListener);
-        } else if (connection != null
+        } /*else if (connection != null
                 && connection.getFeatures().blocking()
                 && conversation.countMessages() != 0
                 && !conversation.isBlocked()
                 && conversation.isWithStranger()) {
             showSnackbar(R.string.received_message_from_stranger, R.string.block, mBlockClickListener);
-        } else {
+        }*/ else {
             hideSnackbar();
         }
     }

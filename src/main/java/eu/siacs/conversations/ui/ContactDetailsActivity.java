@@ -281,7 +281,7 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
                 break;
             case R.id.action_delete_contact:
                 builder.setTitle(getString(R.string.action_delete_contact))
-                        .setMessage(JidDialog.style(this, R.string.remove_contact_text, contact.getJid().toEscapedString()))
+                        .setMessage(JidDialog.style(this, R.string.remove_contact_text, "\""+contact.getJid().getLocal()+"\""))
                         .setPositiveButton(getString(R.string.delete),
                                 removeFromRoster).create().show();
                 break;
@@ -352,8 +352,8 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
         invalidateOptionsMenu();
         setTitle(contact.getDisplayName());
         if (contact.showInRoster()) {
-            binding.detailsSendPresence.setVisibility(View.VISIBLE);
-            binding.detailsReceivePresence.setVisibility(View.VISIBLE);
+            //binding.detailsSendPresence.setVisibility(View.VISIBLE);
+            //binding.detailsReceivePresence.setVisibility(View.VISIBLE);
             binding.addContactButton.setVisibility(View.GONE);
             binding.detailsSendPresence.setOnCheckedChangeListener(null);
             binding.detailsReceivePresence.setOnCheckedChangeListener(null);
@@ -383,28 +383,28 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
             }
 
             if (contact.getOption(Contact.Options.FROM)) {
-                binding.detailsSendPresence.setText(R.string.send_presence_updates);
-                binding.detailsSendPresence.setChecked(true);
+                //binding.detailsSendPresence.setText(R.string.send_presence_updates);
+                //binding.detailsSendPresence.setChecked(true);
             } else if (contact.getOption(Contact.Options.PENDING_SUBSCRIPTION_REQUEST)) {
-                binding.detailsSendPresence.setChecked(false);
-                binding.detailsSendPresence.setText(R.string.send_presence_updates);
+                //binding.detailsSendPresence.setChecked(false);
+                //binding.detailsSendPresence.setText(R.string.send_presence_updates);
             } else {
-                binding.detailsSendPresence.setText(R.string.preemptively_grant);
-                binding.detailsSendPresence.setChecked(contact.getOption(Contact.Options.PREEMPTIVE_GRANT));
+                //binding.detailsSendPresence.setText(R.string.preemptively_grant);
+                //binding.detailsSendPresence.setChecked(contact.getOption(Contact.Options.PREEMPTIVE_GRANT));
             }
             if (contact.getOption(Contact.Options.TO)) {
-                binding.detailsReceivePresence.setText(R.string.receive_presence_updates);
-                binding.detailsReceivePresence.setChecked(true);
+                //binding.detailsReceivePresence.setText(R.string.receive_presence_updates);
+                //binding.detailsReceivePresence.setChecked(true);
             } else {
-                binding.detailsReceivePresence.setText(R.string.ask_for_presence_updates);
-                binding.detailsReceivePresence.setChecked(contact.getOption(Contact.Options.ASKING));
+                //binding.detailsReceivePresence.setText(R.string.ask_for_presence_updates);
+                //binding.detailsReceivePresence.setChecked(contact.getOption(Contact.Options.ASKING));
             }
             if (contact.getAccount().isOnlineAndConnected()) {
-                binding.detailsReceivePresence.setEnabled(true);
-                binding.detailsSendPresence.setEnabled(true);
+                //binding.detailsReceivePresence.setEnabled(true);
+                //binding.detailsSendPresence.setEnabled(true);
             } else {
-                binding.detailsReceivePresence.setEnabled(false);
-                binding.detailsSendPresence.setEnabled(false);
+               //binding.detailsReceivePresence.setEnabled(false);
+                //binding.detailsSendPresence.setEnabled(false);
             }
             binding.detailsSendPresence.setOnCheckedChangeListener(this.mOnSendCheckedChange);
             binding.detailsReceivePresence.setOnCheckedChangeListener(this.mOnReceiveCheckedChange);
@@ -429,7 +429,7 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
             }
         }
 
-        binding.detailsContactjid.setText(IrregularUnicodeDetector.style(this, contact.getJid()));
+        binding.detailsContactjid.setText(contact.getJid().getLocal());
         String account;
         if (Config.DOMAIN_LOCK != null) {
             account = contact.getAccount().getJid().getEscapedLocal();
@@ -518,7 +518,8 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
     }
 
     private void onBadgeClick(View view) {
-        final Uri systemAccount = contact.getSystemAccount();
+        //AvatarWorkerTask.loadAvatar(contact, binding.detailsContactBadge, R.dimen.avatar_on_full_size);
+        /*final Uri systemAccount = contact.getSystemAccount();
         if (systemAccount == null) {
             checkContactPermissionAndShowAddDialog();
         } else {
@@ -529,7 +530,7 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
             } catch (final ActivityNotFoundException e) {
                 Toast.makeText(this, R.string.no_application_found_to_view_contact, Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
     }
 
     public void onBackendConnected() {

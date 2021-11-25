@@ -62,10 +62,11 @@
                                 android:id="@+id/tags"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginLeft="-2dp"
                                 android:layout_marginTop="4dp"
-                                android:orientation="horizontal"></com.wefika.flowlayout.FlowLayout>
+                                android:layout_marginBottom="4dp"
+                                android:orientation="horizontal">
+                            </com.wefika.flowlayout.FlowLayout>
 
                             <TextView
                                 android:id="@+id/details_lastseen"
@@ -95,7 +96,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="@string/send_presence_updates"
-                                android:textAppearance="@style/TextAppearance.Conversations.Body1" />
+                                android:textAppearance="@style/TextAppearance.Conversations.Body1"
+                                android:visibility="gone" />
 
                             <CheckBox
                                 android:id="@+id/details_receive_presence"
@@ -103,15 +105,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/receive_presence_updates"
-                                android:textAppearance="@style/TextAppearance.Conversations.Body1" />
+                                android:textAppearance="@style/TextAppearance.Conversations.Body1"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/details_account"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
                             android:layout_below="@+id/details_jidbox"
+                            android:layout_alignParentRight="true"
                             android:layout_marginTop="32dp"
                             android:text="@string/using_account"
                             android:textAppearance="@style/TextAppearance.Conversations.Caption" />
@@ -201,7 +204,8 @@
                                 android:paddingLeft="16dp"
                                 android:paddingRight="16dp"
                                 android:text="@string/scan_qr_code"
-                                android:textColor="?attr/colorAccent" />
+                                android:textColor="?attr/colorAccent"
+                                android:visibility="gone" />
 
                             <Button
                                 android:id="@+id/show_inactive_devices"

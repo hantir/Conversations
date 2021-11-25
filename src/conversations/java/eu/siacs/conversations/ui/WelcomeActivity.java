@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.security.KeyChain;
 import android.security.KeyChainAliasCallback;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -123,7 +124,15 @@ public class WelcomeActivity extends XmppActivity implements XmppConnectionServi
         setSupportActionBar(binding.toolbar);
         configureActionBar(getSupportActionBar(), false);
         binding.registerNewAccount.setOnClickListener(v -> {
-            final Intent intent = new Intent(this, PickServerActivity.class);
+            final List<Account> accounts = xmppConnectionService.getAccounts();
+            Intent intent = new Intent(this, EditAccountActivity.class);
+            intent.putExtra(EditAccountActivity.EXTRA_FORCE_REGISTER, true);
+            if (accounts.size() == 1) {
+                intent.putExtra("jid", accounts.get(0).getJid().asBareJid().toString());
+                intent.putExtra("init", true);
+            } else if (accounts.size() >= 1) {
+                intent = new Intent(WelcomeActivity.this, ManageAccountActivity.class);
+            }
             addInviteUri(intent);
             startActivity(intent);
         });
@@ -140,14 +149,14 @@ public class WelcomeActivity extends XmppActivity implements XmppConnectionServi
             addInviteUri(intent);
             startActivity(intent);
         });
-
+        binding.termsPolicy.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.welcome_menu, menu);
         final MenuItem scan = menu.findItem(R.id.action_scan_qr_code);
-        scan.setVisible(Compatibility.hasFeatureCamera(this));
+        //scan.setVisible(Compatibility.hasFeatureCamera(this));
         return super.onCreateOptionsMenu(menu);
     }
 

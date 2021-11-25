@@ -9,14 +9,15 @@
 		android:title="@string/action_add_account"/>
 	<item
 		android:id="@+id/action_import_backup"
-		app:showAsAction="never"
-		android:title="@string/restore_backup"/>
+		android:title="@string/restore_backup"
+		android:visible="false"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_add_account_with_cert"
-		app:showAsAction="never"
 		android:icon="?attr/icon_add_person"
 		android:title="@string/action_add_account_with_certificate"
-		android:visible="true"/>
+		android:visible="false"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_enable_all"
 		android:title="@string/enable_all_accounts"/>

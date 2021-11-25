@@ -38,15 +38,15 @@ public final class Config {
 
     public static final String LOGTAG = BuildConfig.APP_NAME.toLowerCase(Locale.US);
 
-    public static final Jid BUG_REPORTS = Jid.of("bugs@conversations.im");
-    public static final Uri HELP = Uri.parse("https://help.conversations.im");
+    public static final Jid BUG_REPORTS = Jid.of("admin@hantir.com");
+    public static final Uri HELP = Uri.parse("https://help.hantir.com");
 
 
-    public static final String DOMAIN_LOCK = null; //only allow account creation for this domain
-    public static final String MAGIC_CREATE_DOMAIN = "conversations.im";
-    public static final Jid QUICKSY_DOMAIN = Jid.of("quicksy.im");
+    public static final String DOMAIN_LOCK = "hantir.com"; //only allow account creation for this domain
+    public static final String MAGIC_CREATE_DOMAIN = "hantir.com";
+    public static final Jid QUICKSY_DOMAIN = null; //Jid.of("quicksy.im");
 
-    public static final String CHANNEL_DISCOVERY = "https://search.jabber.network";
+    public static final String CHANNEL_DISCOVERY = "https://hantir.com";
 
     public static final boolean DISALLOW_REGISTRATION_IN_UI = false; //hide the register checkbox
 
@@ -65,15 +65,15 @@ public final class Config {
 
     public static final boolean DISABLE_BAN = false; // disables the ability to ban users from rooms
 
-    public static final int PING_MAX_INTERVAL = 300;
+    public static final int PING_MAX_INTERVAL = 600;
     public static final int IDLE_PING_INTERVAL = 600; //540 is minimum according to docs;
-    public static final int PING_MIN_INTERVAL = 30;
+    public static final int PING_MIN_INTERVAL = 300;
     public static final int LOW_PING_TIMEOUT = 1; // used after push received
     public static final int PING_TIMEOUT = 15;
-    public static final int SOCKET_TIMEOUT = 15;
-    public static final int CONNECT_TIMEOUT = 90;
+    public static final int SOCKET_TIMEOUT = 60;
+    public static final int CONNECT_TIMEOUT = 180;
     public static final int POST_CONNECTIVITY_CHANGE_PING_INTERVAL = 30;
-    public static final int CONNECT_DISCO_TIMEOUT = 20;
+    public static final int CONNECT_DISCO_TIMEOUT = 60;
     public static final int MINI_GRACE_PERIOD = 750;
 
     public static final boolean XEP_0392 = true; //enables XEP-0392 v0.6.0
@@ -180,8 +180,8 @@ public final class Config {
         //if the contacts domain matches one of the following domains OMEMO won’t be turned on automatically
         //can be used for well known, widely used gateways
         private static final List<String> CONTACT_DOMAINS = Arrays.asList(
-                "cheogram.com",
-                "*.covid.monal.im"
+                "hantir.com",
+                "*.hantir.com"
         );
 
         public static boolean matchesContactDomain(final String domain) {

@@ -221,6 +221,9 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                             case "file-too-large":
                                 info = getContext().getString(R.string.file_too_large);
                                 break;
+                            case "service-unavailable":
+                                info = getContext().getString(R.string.service_unavailable);
+                                break;
                             default:
                                 info = getContext().getString(R.string.send_failed);
                                 break;
@@ -506,9 +509,11 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         toggleWhisperInfo(viewHolder, message, darkBackground);
         viewHolder.image.setVisibility(View.GONE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
-        viewHolder.download_button.setVisibility(View.VISIBLE);
-        viewHolder.download_button.setText(text);
-        viewHolder.download_button.setOnClickListener(v -> ConversationFragment.downloadFile(activity, message));
+        //viewHolder.download_button.setVisibility(View.VISIBLE);
+        //viewHolder.download_button.setText(text);
+        //viewHolder.download_button.setOnClickListener(v -> ConversationFragment.downloadFile(activity, message));
+        ConversationFragment.downloadFile(activity, message);
+        displayMediaPreviewMessage(viewHolder, message, darkBackground);
     }
 
     private void displayOpenableMessage(ViewHolder viewHolder, final Message message, final boolean darkBackground) {
@@ -838,7 +843,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                 if (omemoEncryption && !message.isTrusted()) {
                     viewHolder.encryption.setText(R.string.not_trusted);
                 } else {
-                    viewHolder.encryption.setText(CryptoHelper.encryptionTypeToText(message.getEncryption()));
+                    //viewHolder.encryption.setText(CryptoHelper.encryptionTypeToText(message.getEncryption()));
                 }
             }
         }

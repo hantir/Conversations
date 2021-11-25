@@ -25,7 +25,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentBottom="true"
                     android:minHeight="256dp"
                     android:orientation="vertical"
@@ -36,53 +35,59 @@
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:visibility="gone" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/welcome_header"
+                        android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.Conversations.Title" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/do_you_have_an_account"
-                        android:textAppearance="@style/TextAppearance.Conversations.Body1" />
 
                     <Button
                         android:id="@+id/register_new_account"
                         style="@style/Widget.Conversations.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:text="@string/create_new_account"
-                        android:textColor="?colorAccent" />
+                        android:textColor="?colorAccent"
+                        android:textAllCaps="false"/>
 
                     <Button
                         android:id="@+id/use_existing"
                         style="@style/Widget.Conversations.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/i_already_have_an_account"
+                        android:textAllCaps="false"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <TextView
+                        android:id="@+id/terms_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:text="@string/i_already_have_an_account"
-                        android:textColor="?android:textColorSecondary" />
+                        android:layout_marginTop="8dp"
+                        android:text="@string/terms_policy"
+                        android:layout_gravity="center"
+                        android:textAppearance="@style/TextAppearance.Conversations.Body1.Linkified"
+                        android:clickable="true"
+                        android:focusable="true" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="346dp"
                     android:layout_above="@+id/linearLayout"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true">
+                    android:layout_alignParentStart="true">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:padding="8dp"
+                        android:layout_centerInParent="true"
+                        android:padding="4dp"
                         android:src="@drawable/main_logo" />
                 </RelativeLayout>
             </RelativeLayout>

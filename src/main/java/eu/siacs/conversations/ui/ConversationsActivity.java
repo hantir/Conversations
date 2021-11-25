@@ -208,7 +208,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
             if (ExceptionHelper.checkForCrash(this)) {
                 return;
             }
-            openBatteryOptimizationDialogIfNeeded();
+            //openBatteryOptimizationDialogIfNeeded();
         }
     }
 
@@ -391,7 +391,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.main_fragment);
                 boolean visible = getResources().getBoolean(R.bool.show_qr_code_scan)
                         && fragment instanceof ConversationsOverviewFragment;
-                qrCodeScanMenuItem.setVisible(visible);
+                qrCodeScanMenuItem.setVisible(false);
             } else {
                 qrCodeScanMenuItem.setVisible(false);
             }

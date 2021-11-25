@@ -80,7 +80,7 @@ public class BlocklistActivity extends AbstractSearchableListItemActivity implem
 				getString(R.string.block_jabber_id),
 				getString(R.string.block),
 				null,
-				account.getJid().asBareJid().toEscapedString(),
+				account.getJid().getLocal(), //asBareJid().toEscapedString(),
 				true,
 				false
 		);

@@ -38,8 +38,8 @@ public final class Config {
 
     public static final String LOGTAG = BuildConfig.APP_NAME.toLowerCase(Locale.US);
 
-    public static final Jid BUG_REPORTS = Jid.of("admin@hantir.com");
-    public static final Uri HELP = Uri.parse("https://help.hantir.com");
+    public static final Jid BUG_REPORTS = Jid.of("bug@hantir.com");
+    public static final Uri HELP = Uri.parse("https://hantir.com");
 
 
     public static final String DOMAIN_LOCK = "hantir.com"; //only allow account creation for this domain

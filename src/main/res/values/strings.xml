@@ -397,7 +397,7 @@
     <string name="members_only">Private, members only</string>
     <string name="non_anonymous">Make username visible to anyone</string>
     <string name="moderated">Make room moderated</string>
-    <string name="you_are_not_participating">You are joining, please wait....</string>
+    <string name="you_are_not_participating">You are joining this room, please wait....</string>
     <string name="modified_conference_options">Modified room options!</string>
     <string name="could_not_modify_conference_options">Could not modify room options</string>
     <string name="never">Never</string>

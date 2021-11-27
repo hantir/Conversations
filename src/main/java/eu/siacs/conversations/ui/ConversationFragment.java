@@ -3046,7 +3046,19 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                         if (!mucOptions.isUserInRoom(user) && mucOptions.findUserByRealJid(tcp == null ? null : tcp.asBareJid()) == null) {
                             Toast.makeText(getActivity(), activity.getString(R.string.user_has_left_conference, user.getResource()), Toast.LENGTH_SHORT).show();
                         }
-                        highlightInConference(user.getResource());
+                        String final_resource = user.getResource();
+                        try{
+                            for (int i = 0; i < mucOptions.getUsers().size(); ++i) {
+                                if(mucOptions.getUsers().get(i).getFullJid().getResource().equals(user.getResource()))
+                                {
+                                    final_resource = mucOptions.getUsers().get(i).getRealJid().getLocal();
+                                }
+                            }
+                        } catch ( NullPointerException ignored){ }
+                        finally
+                        {
+                            highlightInConference(final_resource);
+                        }
                     } else {
                         Toast.makeText(getActivity(), R.string.you_are_not_participating, Toast.LENGTH_SHORT).show();
                     }

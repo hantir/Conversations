@@ -2362,7 +2362,10 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                     showSnackbar(R.string.conference_destroyed, R.string.leave, leaveMuc);
                     break;
                 case NON_ANONYMOUS:
-                    showSnackbar(R.string.group_chat_will_make_your_jabber_id_public, R.string.join, acceptJoin);
+                    //showSnackbar(R.string.group_chat_will_make_your_jabber_id_public, R.string.join, acceptJoin);
+                    conversation.setAttribute("accept_non_anonymous", true);
+                    activity.xmppConnectionService.updateConversation(conversation);
+                    activity.xmppConnectionService.joinMuc(conversation);
                     break;
                 default:
                     hideSnackbar();

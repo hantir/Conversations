@@ -472,11 +472,11 @@ public class DatabaseBackend extends SQLiteOpenHelper {
             db.execSQL(CREATE_MESSAGE_TIME_INDEX);
 
             final File oldPicturesDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Hantir/");
-            final File oldFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/Hantir/");
-            final File newFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/Hantir/Media/Hantir Files/");
-            final File newVideosDirectory = new File(Environment.getExternalStorageDirectory() + "/Hantir/Media/Hantir Videos/");
+            final File oldFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir/");
+            final File newFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir_Files/");
+            final File newVideosDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir_Videos/");
             if (oldPicturesDirectory.exists() && oldPicturesDirectory.isDirectory()) {
-                final File newPicturesDirectory = new File(Environment.getExternalStorageDirectory() + "/Hantir/Media/Hantir Images/");
+                final File newPicturesDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir_Images/");
                 newPicturesDirectory.getParentFile().mkdirs();
                 if (oldPicturesDirectory.renameTo(newPicturesDirectory)) {
                     Log.d(Config.LOGTAG, "moved " + oldPicturesDirectory.getAbsolutePath() + " to " + newPicturesDirectory.getAbsolutePath());

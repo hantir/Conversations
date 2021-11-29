@@ -153,7 +153,7 @@ public class FileBackend {
     }
 
     public static String getAppMediaDirectory(Context context) {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getString(R.string.app_name) + "/Media/";
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/" + context.getString(R.string.app_name) + "/Media/";
     }
 
     public static String getBackupDirectory(Context context) {
@@ -161,7 +161,7 @@ public class FileBackend {
     }
 
     public static String getBackupDirectory(String app) {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + app + "/Backup/";
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/" + app + "/Backup/";
     }
 
     private static Bitmap rotate(Bitmap bitmap, int degree) {

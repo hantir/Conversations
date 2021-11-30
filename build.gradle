@@ -90,7 +90,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 22
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 42024
         versionName "2.10.2"

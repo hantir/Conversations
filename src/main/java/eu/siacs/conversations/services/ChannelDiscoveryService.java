@@ -46,7 +46,7 @@ public class ChannelDiscoveryService {
 
     ChannelDiscoveryService(XmppConnectionService service) {
         this.service = service;
-        this.cache = CacheBuilder.newBuilder().expireAfterWrite(15, TimeUnit.MINUTES).build();
+        this.cache = CacheBuilder.newBuilder().expireAfterWrite(Config.EXPIRY_CHANNEL_DISC, TimeUnit.MINUTES).build();
     }
 
     void initializeMuclumbusService() {

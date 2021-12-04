@@ -135,6 +135,7 @@ public final class Config {
     public static final int TYPING_TIMEOUT = 8;
 
     public static final int EXPIRY_INTERVAL = 30 * 60 * 1000; // 30 minutes
+    public static final int EXPIRY_CHANNEL_DISC = 60 * 60 * 1000;
 
     public static final String[] ENABLED_CIPHERS = {
             "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",

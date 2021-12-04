@@ -69,7 +69,7 @@ public class ChannelSearchResultAdapter extends ListAdapter<Room, ChannelSearchR
             viewHolder.binding.description.setText(description);
             viewHolder.binding.description.setVisibility(View.VISIBLE);
         }
-        viewHolder.binding.room.setText(nusers + " Participents");
+        viewHolder.binding.room.setText(nusers + " " + R.string.group_chat_members);
         viewHolder.binding.room.setVisibility(View.VISIBLE);
         /*if (language == null || language.length() != 2) {
             viewHolder.binding.language.setVisibility(View.GONE);

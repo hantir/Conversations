@@ -504,8 +504,8 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
                 this.binding.mucSettings.setVisibility(View.VISIBLE);
                 this.binding.mucConferenceType.setText(MucConfiguration.describe(this, mucOptions));
             } else if (!mucOptions.isPrivateAndNonAnonymous() && mucOptions.nonanonymous()) {
-                this.binding.mucSettings.setVisibility(View.VISIBLE);
-                this.binding.mucConferenceType.setText(R.string.group_chat_will_make_your_jabber_id_public);
+                //this.binding.mucSettings.setVisibility(View.VISIBLE);
+                //this.binding.mucConferenceType.setText(R.string.group_chat_will_make_your_jabber_id_public);
             } else {
                 this.binding.mucSettings.setVisibility(View.GONE);
             }

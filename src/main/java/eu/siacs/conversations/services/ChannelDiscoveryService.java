@@ -169,6 +169,7 @@ public class ChannelDiscoveryService {
                                     final Room room = IqParser.parseRoom(infoResponse);
                                     if (room != null) {
                                         rooms.add(room);
+                                        Collections.shuffle(rooms);
                                     }
                                     if (queriesInFlight.decrementAndGet() <= 0) {
                                         finishDiscoSearch(rooms, query, listener);

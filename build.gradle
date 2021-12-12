@@ -92,7 +92,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 42025
+        versionCode 42026
         versionName "2.10.2"
         archivesBaseName += "-$versionName"
         applicationId "com.hantir.android"

@@ -134,6 +134,8 @@ public class FileBackend {
                     }
                 } catch (NotAVideoFile notAVideoFile) {
                     //ignore and fall through
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             if (FileBackend.getFileSize(context, attachment.getUri()) > max) {
@@ -264,7 +266,7 @@ public class FileBackend {
         return inSampleSize;
     }
 
-    private static Dimensions getVideoDimensions(Context context, Uri uri) throws NotAVideoFile {
+    private static Dimensions getVideoDimensions(Context context, Uri uri) throws NotAVideoFile, IOException {
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         try {
             mediaMetadataRetriever.setDataSource(context, uri);
@@ -288,7 +290,7 @@ public class FileBackend {
         }
     }
 
-    private static Dimensions getVideoDimensions(MediaMetadataRetriever metadataRetriever) throws NotAVideoFile {
+    private static Dimensions getVideoDimensions(MediaMetadataRetriever metadataRetriever) throws NotAVideoFile, IOException {
         String hasVideo = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_HAS_VIDEO);
         if (hasVideo == null) {
             throw new NotAVideoFile();
@@ -1359,7 +1361,7 @@ public class FileBackend {
                 if (dimensions.valid()) {
                     body.append('|').append(dimensions.width).append('|').append(dimensions.height);
                 }
-            } catch (NotAVideoFile notAVideoFile) {
+            } catch (NotAVideoFile | IOException notAVideoFile) {
                 Log.d(Config.LOGTAG, "file with mime type " + file.getMimeType() + " was not a video file");
                 //fall threw
             }
@@ -1392,7 +1394,7 @@ public class FileBackend {
         return new Dimensions(imageHeight, imageWidth);
     }
 
-    private Dimensions getVideoDimensions(File file) throws NotAVideoFile {
+    private Dimensions getVideoDimensions(File file) throws NotAVideoFile, IOException {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         try {
             metadataRetriever.setDataSource(file.getAbsolutePath());

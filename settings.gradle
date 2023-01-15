@@ -1,1 +1,3 @@
 rootProject.name = 'Hantir'
+include ':nativetemplates'
+include ':app'

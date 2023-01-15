@@ -235,7 +235,7 @@ public class ChooseContactActivity extends AbstractSearchableListItemActivity im
         super.onCreateOptionsMenu(menu);
         final Intent i = getIntent();
         boolean showEnterJid = i != null && i.getBooleanExtra(EXTRA_SHOW_ENTER_JID, false);
-        menu.findItem(R.id.action_scan_qr_code).setVisible(isCameraFeatureAvailable() && showEnterJid);
+        menu.findItem(R.id.action_scan_qr_code).setVisible(false);
         MenuItem mMenuSearchView = menu.findItem(R.id.action_search);
         if (startSearching) {
             mMenuSearchView.expandActionView();
@@ -382,6 +382,7 @@ public class ChooseContactActivity extends AbstractSearchableListItemActivity im
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         ScanActivity.onRequestPermissionResult(this, requestCode, grantResults);
     }
 

@@ -50,11 +50,11 @@
     <PreferenceCategory
         android:key="notification_category"
         android:title="@string/pref_notification_settings">
-        <CheckBoxPreference
+        <!--CheckBoxPreference
             android:defaultValue="@bool/notifications_from_strangers"
             android:key="notifications_from_strangers"
             android:summary="@string/pref_notifications_from_strangers_summary"
-            android:title="@string/pref_notifications_from_strangers" />
+            android:title="@string/pref_notifications_from_strangers" /-->
         <CheckBoxPreference
             android:defaultValue="@bool/headsup_notifications"
             android:key="notification_headsup"
@@ -197,14 +197,14 @@
             android:summary="@string/pref_font_size_summary"
             android:title="@string/pref_font_size" />
     </PreferenceCategory>
-    <PreferenceCategory
+    <!--PreferenceCategory
         android:key="backup_category"
         android:title="@string/backup">
         <Preference
             android:key="create_backup"
             android:summary="@string/pref_create_backup_summary"
             android:title="@string/pref_create_backup" />
-    </PreferenceCategory>
+    </PreferenceCategory-->
     <!--PreferenceCategory
         android:key="advanced"
         android:title="@string/pref_advanced_options">

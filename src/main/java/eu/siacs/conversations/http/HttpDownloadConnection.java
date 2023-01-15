@@ -219,9 +219,9 @@ public class HttpDownloadConnection implements Transferable {
             mXmppConnectionService.showErrorToastInUi(R.string.download_failed_could_not_connect);
         } else if (e instanceof FileWriterException) {
             mXmppConnectionService.showErrorToastInUi(R.string.download_failed_could_not_write_file);
-        } else {
-            mXmppConnectionService.showErrorToastInUi(R.string.download_failed_file_not_found);
-        }
+        } //else {
+            //mXmppConnectionService.showErrorToastInUi(R.string.download_failed_file_not_found);
+        //}
     }
 
     private void updateProgress(long i) {

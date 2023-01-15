@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.3.1'
     }
 }
 
@@ -87,12 +87,12 @@ ext {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 42023
+        targetSdkVersion 30
+        versionCode 42028
         versionName "2.10.2"
         archivesBaseName += "-$versionName"
         applicationId "com.hantir.android"
@@ -250,9 +250,6 @@ android {
         buildTypes.release.signingConfig = signingConfigs.release
     }
 
-    lintOptions {
-        disable 'MissingTranslation', 'InvalidPackage','AppCompatResource'
-    }
 
     subprojects {
 
@@ -267,11 +264,16 @@ android {
 
         }
     }
-
     packagingOptions {
-        exclude 'META-INF/BCKEY.DSA'
-        exclude 'META-INF/BCKEY.SF'
+        resources {
+            excludes += ['META-INF/BCKEY.DSA', 'META-INF/BCKEY.SF']
+        }
     }
+    lint {
+        disable 'MissingTranslation', 'InvalidPackage', 'AppCompatResource'
+    }
+
+    namespace 'eu.siacs.conversations'
 
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->

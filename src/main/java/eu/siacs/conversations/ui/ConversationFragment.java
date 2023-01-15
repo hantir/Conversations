@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -1744,7 +1745,8 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
         if (context == null) {
             return;
         }
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
+
+        try {
             if (chooser) {
                 startActivityForResult(
                         Intent.createChooser(intent, getString(R.string.perform_action_with)),
@@ -1752,7 +1754,7 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
             } else {
                 startActivityForResult(intent, attachmentChoice);
             }
-        } else {
+        } catch (ActivityNotFoundException e){
             Toast.makeText(context, R.string.no_application_found, Toast.LENGTH_LONG).show();
         }
     }
@@ -2305,9 +2307,12 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
         } else if (conversation.isBlocked()) {
             showSnackbar(R.string.contact_blocked, R.string.unblock, this.mUnblockClickListener);
         } else if (contact != null && !contact.showInRoster() && contact.getOption(Contact.Options.PENDING_SUBSCRIPTION_REQUEST)) {
-            showSnackbar(R.string.contact_added_you, R.string.add_back, this.mAddBackClickListener, this.mLongPressBlockListener);
+            //showSnackbar(R.string.contact_added_you, R.string.add_back, this.mAddBackClickListener, this.mLongPressBlockListener);
+            activity.xmppConnectionService.createContact(contact, true);
         } else if (contact != null && contact.getOption(Contact.Options.PENDING_SUBSCRIPTION_REQUEST)) {
-            showSnackbar(R.string.contact_asks_for_presence_subscription, R.string.allow, this.mAllowPresenceSubscription, this.mLongPressBlockListener);
+            //showSnackbar(R.string.contact_asks_for_presence_subscription, R.string.allow, this.mAllowPresenceSubscription, this.mLongPressBlockListener);
+            activity.xmppConnectionService.sendPresencePacket(contact.getAccount(), activity.xmppConnectionService.getPresenceGenerator().sendPresenceUpdatesTo(contact));
+            hideSnackbar();
         } else if (mode == Conversation.MODE_MULTI
                 && !conversation.getMucOptions().online()
                 && account.getStatus() == Account.State.ONLINE) {
@@ -2359,7 +2364,10 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                     showSnackbar(R.string.conference_destroyed, R.string.leave, leaveMuc);
                     break;
                 case NON_ANONYMOUS:
-                    showSnackbar(R.string.group_chat_will_make_your_jabber_id_public, R.string.join, acceptJoin);
+                    //showSnackbar(R.string.group_chat_will_make_your_jabber_id_public, R.string.join, acceptJoin);
+                    conversation.setAttribute("accept_non_anonymous", true);
+                    activity.xmppConnectionService.updateConversation(conversation);
+                    activity.xmppConnectionService.joinMuc(conversation);
                     break;
                 default:
                     hideSnackbar();
@@ -2367,13 +2375,13 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
             }
         } else if (account.hasPendingPgpIntent(conversation)) {
             showSnackbar(R.string.openpgp_messages_found, R.string.decrypt, clickToDecryptListener);
-        } else if (connection != null
+        } /*else if (connection != null
                 && connection.getFeatures().blocking()
                 && conversation.countMessages() != 0
                 && !conversation.isBlocked()
                 && conversation.isWithStranger()) {
             showSnackbar(R.string.received_message_from_stranger, R.string.block, mBlockClickListener);
-        } else {
+        }*/ else {
             hideSnackbar();
         }
     }
@@ -3043,7 +3051,19 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                         if (!mucOptions.isUserInRoom(user) && mucOptions.findUserByRealJid(tcp == null ? null : tcp.asBareJid()) == null) {
                             Toast.makeText(getActivity(), activity.getString(R.string.user_has_left_conference, user.getResource()), Toast.LENGTH_SHORT).show();
                         }
-                        highlightInConference(user.getResource());
+                        String final_resource = user.getResource();
+                        try{
+                            for (int i = 0; i < mucOptions.getUsers().size(); ++i) {
+                                if(mucOptions.getUsers().get(i).getFullJid().getResource().equals(user.getResource()))
+                                {
+                                    final_resource = mucOptions.getUsers().get(i).getRealJid().getLocal();
+                                }
+                            }
+                        } catch ( NullPointerException ignored){ }
+                        finally
+                        {
+                            highlightInConference(final_resource);
+                        }
                     } else {
                         Toast.makeText(getActivity(), R.string.you_are_not_participating, Toast.LENGTH_SHORT).show();
                     }

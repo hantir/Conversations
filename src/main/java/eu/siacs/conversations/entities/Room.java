@@ -77,9 +77,9 @@ public class Room implements AvatarService.Avatarable, Comparable<Room> {
 
 
     public boolean contains(String needle) {
-        return Strings.nullToEmpty(name).contains(needle)
-                || Strings.nullToEmpty(description).contains(needle)
-                || Strings.nullToEmpty(address).contains(needle);
+        return Strings.nullToEmpty(name).toLowerCase().contains(needle.toLowerCase())
+                || Strings.nullToEmpty(description).toLowerCase().contains(needle.toLowerCase())
+                || Strings.nullToEmpty(address).toLowerCase().contains(needle.toLowerCase());
     }
 
     @Override

@@ -302,7 +302,7 @@
     <string name="conference_unknown_error">You are no longer in this room</string>
     <string name="using_account">Using Account %s</string>
     <string name="hosted_on">hosted on %s</string>
-    <string name="checking_x">Checking %s on HTTP host</string>
+    <string name="checking_x">Checking %s</string>
     <string name="not_connected_try_again">You are not connected. Try again later</string>
     <string name="check_x_filesize">Check %s size</string>
     <string name="check_x_filesize_on_host">Check %1$s size on %2$s</string>
@@ -373,7 +373,7 @@
     <string name="enable_all_accounts">Enable all accounts</string>
     <string name="disable_all_accounts">Disable all accounts</string>
     <string name="perform_action_with">Perform action with</string>
-    <string name="no_affiliation">No affiliation</string>
+    <string name="no_affiliation">Participant</string>
     <string name="no_role">Offline</string>
     <string name="outcast">Outcast</string>
     <string name="member">Member</string>
@@ -397,7 +397,7 @@
     <string name="members_only">Private, members only</string>
     <string name="non_anonymous">Make username visible to anyone</string>
     <string name="moderated">Make room moderated</string>
-    <string name="you_are_not_participating">You are joining, please wait</string>
+    <string name="you_are_not_participating">You are joining this room, please wait....</string>
     <string name="modified_conference_options">Modified room options!</string>
     <string name="could_not_modify_conference_options">Could not modify room options</string>
     <string name="never">Never</string>
@@ -850,7 +850,7 @@
     <string name="xmpp_address">Username</string>
     <string name="please_enter_name">Please provide a name for the room</string>
     <string name="please_enter_xmpp_address">Please provide an username</string>
-    <string name="this_is_an_xmpp_address">This is an username. Please provide a name.</string>
+    <string name="this_is_an_xmpp_address">Please provide a valid name, @ is not allowed.</string>
     <string name="creating_channel">Creating public room…</string>
     <string name="channel_already_exists">This room already exists</string>
     <string name="joined_an_existing_channel">You’ve joined an existing room</string>

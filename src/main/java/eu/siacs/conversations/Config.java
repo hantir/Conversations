@@ -38,8 +38,8 @@ public final class Config {
 
     public static final String LOGTAG = BuildConfig.APP_NAME.toLowerCase(Locale.US);
 
-    public static final Jid BUG_REPORTS = Jid.of("admin@hantir.com");
-    public static final Uri HELP = Uri.parse("https://help.hantir.com");
+    public static final Jid BUG_REPORTS = Jid.of("bug@hantir.com");
+    public static final Uri HELP = Uri.parse("https://hantir.com");
 
 
     public static final String DOMAIN_LOCK = "hantir.com"; //only allow account creation for this domain
@@ -121,7 +121,7 @@ public final class Config {
     public static final boolean X509_VERIFICATION = false; //use x509 certificates to verify OMEMO keys
     public static final boolean REQUIRE_RTP_VERIFICATION = false; //require a/v calls to be verified with OMEMO
 
-    public static final boolean ONLY_INTERNAL_STORAGE = false; //use internal storage instead of sdcard to save attachments
+    public static final boolean ONLY_INTERNAL_STORAGE = true; //use internal storage instead of sdcard to save attachments
 
     public static final boolean IGNORE_ID_REWRITE_IN_MUC = true;
     public static final boolean MUC_LEAVE_BEFORE_JOIN = false;
@@ -135,6 +135,7 @@ public final class Config {
     public static final int TYPING_TIMEOUT = 8;
 
     public static final int EXPIRY_INTERVAL = 30 * 60 * 1000; // 30 minutes
+    public static final int EXPIRY_CHANNEL_DISC = 60 * 60 * 1000;
 
     public static final String[] ENABLED_CIPHERS = {
             "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",

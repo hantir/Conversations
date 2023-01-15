@@ -471,12 +471,12 @@ public class DatabaseBackend extends SQLiteOpenHelper {
         if (oldVersion < 34 && newVersion >= 34) {
             db.execSQL(CREATE_MESSAGE_TIME_INDEX);
 
-            final File oldPicturesDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Conversations/");
-            final File oldFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/Conversations/");
-            final File newFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/Conversations/Media/Conversations Files/");
-            final File newVideosDirectory = new File(Environment.getExternalStorageDirectory() + "/Conversations/Media/Conversations Videos/");
+            final File oldPicturesDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Hantir/");
+            final File oldFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir/");
+            final File newFilesDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir_Files/");
+            final File newVideosDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir_Videos/");
             if (oldPicturesDirectory.exists() && oldPicturesDirectory.isDirectory()) {
-                final File newPicturesDirectory = new File(Environment.getExternalStorageDirectory() + "/Conversations/Media/Conversations Images/");
+                final File newPicturesDirectory = new File(Environment.getExternalStorageDirectory() + "/DCIM/Hantir_Images/");
                 newPicturesDirectory.getParentFile().mkdirs();
                 if (oldPicturesDirectory.renameTo(newPicturesDirectory)) {
                     Log.d(Config.LOGTAG, "moved " + oldPicturesDirectory.getAbsolutePath() + " to " + newPicturesDirectory.getAbsolutePath());

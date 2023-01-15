@@ -222,6 +222,8 @@ public final class MucDetailsContextMenuHelper {
 
     private static void startConversation(User user, XmppActivity activity) {
         if (user.getRealJid() != null) {
+            final Contact contact = user.getAccount().getRoster().getContact(user.getRealJid());
+            activity.xmppConnectionService.createContact(contact, true);
             Conversation newConversation = activity.xmppConnectionService.findOrCreateConversation(user.getAccount(), user.getRealJid().asBareJid(), false, true);
             activity.switchToConversation(newConversation);
         }

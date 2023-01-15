@@ -1,20 +1,12 @@
 // Top-level build file where you can add configuration options common to all
 // sub-projects/modules.
 buildscript {
-    ext {
-        kotlin_version = '1.7.20'
-        ext.vesdk_version = '8.3.0'
-    }
     repositories {
         google()
         mavenCentral()
-        maven { url "https://www.jitpack.io" }
-        maven { url "https://maven.google.com" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath 'com.google.gms:google-services:4.3.5'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -24,27 +16,6 @@ repositories {
     google()
     mavenCentral()
     jcenter()
-}
-
-allprojects {
-    repositories {
-        google()
-        maven { url "https://jitpack.io" }
-        mavenCentral()
-        //noinspection JcenterRepositoryObsolete
-        jcenter()
-        maven {
-            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
-        }
-    }
-    project.configurations.all {
-        resolutionStrategy {
-            force 'androidx.work:work-runtime:2.7.0'
-        }
-        resolutionStrategy.dependencySubstitution {
-            substitute module('org.hamcrest:hamcrest-core:1.1') with module('junit:junit:4.10')
-        }
-    }
 }
 
 configurations {

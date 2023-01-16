@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "687284549977",
+    "project_id": "myfriend-2eec2",
+    "storage_bucket": "myfriend-2eec2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687284549977:android:91811d1d11fb7035c5b448",
+        "android_client_info": {
+          "package_name": "com.frizid.timeline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687284549977-jk7mvph6au442see972etvo1d5hdrcal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzPGX0PI5eM1kb69GNN-tNPqwTMy_H7VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687284549977-jk7mvph6au442see972etvo1d5hdrcal.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,6 @@
 -dontobfuscate
 
--keep class eu.siacs.conversations.**
+-keep class com.frizid.timeline.**
 
 -keep class org.whispersystems.**
 
@@ -35,7 +35,7 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 
--keepclassmembers class eu.siacs.conversations.http.services.** {
+-keepclassmembers class com.frizid.timeline.http.services.** {
   !transient <fields>;
 }
 

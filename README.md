@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-    <a href="https://play.google.com/store/apps/details?id=eu.siacs.conversations&amp;referrer=utm_source%3Dgithub">
+    <a href="https://play.google.com/store/apps/details?id=com.frizid.timeline&amp;referrer=utm_source%3Dgithub">
        <img src="https://conversations.im/images/en-play-badge.png" alt="Google Play">
     </a>
 </p>
@@ -87,7 +87,7 @@ build your apk file.
 
 The more convenient way — which not only gives you automatic updates but also
 supports the further development of Conversations — is to buy the App in the
-Google [Play Store](https://play.google.com/store/apps/details?id=eu.siacs.conversations&referrer=utm_source%3Dgithub).
+Google [Play Store](https://play.google.com/store/apps/details?id=com.frizid.timeline&referrer=utm_source%3Dgithub).
 
 Buying the App from the Play Store will also give you access to our [beta test](#beta).
 
@@ -380,8 +380,8 @@ Unfortunately we don‘t have a recommendation for iPhones right now. There are 
 
 <a name="beta"></a>
 #### Beta testing
-If you bought the App on [Google Play](https://play.google.com/store/apps/details?id=eu.siacs.conversations)
-you can get access to the the latest beta version by signing up using [this link](https://play.google.com/apps/testing/eu.siacs.conversations).
+If you bought the App on [Google Play](https://play.google.com/store/apps/details?id=com.frizid.timeline)
+you can get access to the the latest beta version by signing up using [this link](https://play.google.com/apps/testing/com.frizid.timeline).
 
 #### How do I build Conversations
 

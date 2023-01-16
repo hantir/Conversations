@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_resource">Phone</string>
+    <bool name="portrait_only">true</bool>
+    <bool name="enter_is_send">false</bool>
+    <bool name="notifications_from_strangers">false</bool>
+    <bool name="headsup_notifications">false</bool>
+    <bool name="dnd_on_silent_mode">false</bool>
+    <bool name="treat_vibrate_as_silent">false</bool>
+    <bool name="confirm_messages">true</bool>
+    <bool name="chat_states">true</bool>
+    <bool name="last_activity">false</bool>
+    <bool name="vibrate_on_notification">false</bool>
+    <bool name="led">true</bool>
+    <bool name="enable_quiet_hours">false</bool>
+    <string name="notification_ringtone">content://settings/system/notification_sound</string>
+    <string name="incoming_call_ringtone">content://settings/system/ringtone</string>
+    <integer name="grace_period">144</integer>
+    <integer name="auto_accept_filesize">10485760</integer>
+    <string name="picture_compression">auto</string>
+    <bool name="use_green_background">false</bool>
+    <string name="quick_action">recent</string>
+    <bool name="show_dynamic_tags">false</bool>
+    <bool name="btbv">true</bool>
+    <integer name="automatic_message_deletion">0</integer>
+    <bool name="dont_trust_system_cas">false</bool>
+    <bool name="allow_message_correction">true</bool>
+    <bool name="use_tor">false</bool>
+    <bool name="show_connection_options">false</bool>
+    <bool name="display_enter_key">false</bool>
+    <bool name="manually_change_presence">true</bool>
+    <bool name="away_when_screen_off">false</bool>
+    <bool name="autojoin">true</bool>
+    <bool name="enable_foreground_service">true</bool>
+    <bool name="never_send">false</bool>
+    <bool name="validate_hostname">false</bool>
+    <bool name="show_qr_code_scan">false</bool>
+    <bool name="show_individual_search_options">true</bool>
+    <bool name="show_combined_search_options">false</bool>
+    <bool name="scroll_to_bottom">true</bool>
+    <string name="omemo_setting_default">default_on</string>
+    <string name="default_font_size">small</string>
+    <bool name="use_share_location_plugin">false</bool>
+    <bool name="start_searching">false</bool>
+    <string name="video_compression">360</string>
+    <string name="default_channel_discovery">LOCAL_SERVER</string>
+    <bool name="prevent_screenshots">false</bool>
+
+
+<!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="in_call_fab_margin">8dp</dimen>
+    <dimen name="in_call_fab_margin_center">12dp</dimen>
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="card_padding_regular">16dp</dimen>
+    <dimen name="card_padding_list">8dp</dimen> <!-- card_padding_regular minus list_padding -->
+    <dimen name="list_padding">8dp</dimen>
+    <dimen name="image_button_padding">12dp</dimen>
+    <dimen name="key_action_width">48dp
+    </dimen>  <!-- icon width (24dp) + 2 * image button padding -->
+    <dimen name="fineprint_size">11sp</dimen>
+    <dimen name="audio_player_width">224dp</dimen>
+    <dimen name="image_preview_width">224dp</dimen>
+    <dimen name="avatar_item_distance">16dp</dimen>
+
+    <dimen name="media_preview_size">80dp</dimen>
+    <dimen name="media_size">56dp</dimen> <!-- ideally not larger than avatar_on_details_screen -->
+    <dimen name="browser_media_size">96dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <dimen name="publish_avatar_top_margin">8dp</dimen>
+    <dimen name="publish_avatar_size">96dp</dimen>
+    <dimen name="incoming_call_radius">48dp</dimen>
+    <dimen name="avatar_on_status_message">32dp</dimen>
+    <dimen name="avatar">48dp</dimen>
+    <dimen name="avatar_on_details_screen_size">56dp</dimen>
+    <dimen name="avatar_on_conversation_overview">56dp</dimen>
+
+    <dimen name="input_label_vertical_spacing">4dp</dimen>
+    <dimen name="input_label_horizontal_spacing">4dp</dimen>
+
+    <!-- scanner -->
+    <dimen name="scan_laser_width">4dp</dimen>
+    <dimen name="scan_dot_size">8dp</dimen>
+
+    <dimen name="swipe_escape_velocity">1200dp</dimen> <!-- android default is 120dp -->
+
+    <dimen name="background_image_opacity">0.12</dimen>
+
+    <dimen name="sd_label_max_width">256dp</dimen>
+
+    <dimen name="local_video_preview_height">128dp</dimen>
+    <dimen name="local_video_preview_width">96dp</dimen>
+    <dimen name="rtp_session_duration_top_margin">24dp</dimen>
+</resources>
+

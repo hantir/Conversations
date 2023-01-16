@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.frizid.timeline">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
+<queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
+    <application
+        android:name="com.frizid.timeline.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme"
+        android:usesCleartextTraffic="true">
+
+        <service android:name="com.frizid.timeline.services.XmppConnectionService" />
+
+        <receiver android:name=".services.EventReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.media.RINGER_MODE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".photoeditor.EditImageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.frizid.timeline.post.ReplyActivity" />
+        <activity android:name="com.frizid.timeline.menu.TranslationActivity" />
+        <activity android:name="com.frizid.timeline.menu.InviteActivity" />
+        <activity android:name="com.frizid.timeline.menu.TermsActivity" />
+        <activity android:name="com.frizid.timeline.group.JoinRequestActivity" />
+        <!--activity android:name="com.frizid.timeline.StickersPost" /-->
+        <activity android:name="com.frizid.timeline.menu.PrivacyActivity" />
+        <activity android:name="com.frizid.timeline.group.AddGroupActivity" />
+        <activity android:name="com.frizid.timeline.group.GroupMembersActivity" />
+        <activity android:name="com.frizid.timeline.menu.EditNumberActivity" />
+        <activity android:name="com.frizid.timeline.menu.EditEmailActivity" />
+        <activity android:name="com.frizid.timeline.menu.EditPasswordActivity" />
+        <activity android:name="com.frizid.timeline.menu.VerificationActivity" />
+        <activity android:name="com.frizid.timeline.menu.SavedActivity" />
+        <activity android:name="com.frizid.timeline.menu.MenuActivity" />
+        <activity android:name="com.frizid.timeline.who.FollowersActivity" />
+        <activity android:name="com.frizid.timeline.who.FollowingActivity" />
+        <activity android:name="com.frizid.timeline.notifications.NotificationScreen" />
+        <activity android:name="com.frizid.timeline.who.ReelLikedActivity" />
+        <activity android:name="com.frizid.timeline.who.ViewedActivity" />
+        <activity android:name="com.frizid.timeline.story.HighViewActivity" />
+        <activity android:name="com.frizid.timeline.search.LocationActivity" />
+        <activity android:name="com.frizid.timeline.who.LikedActivity" />
+        <activity android:name="com.frizid.timeline.story.StoryViewActivity" />
+        <activity android:name="com.frizid.timeline.story.AddStoryActivity" />
+        <activity
+            android:name="com.frizid.timeline.reel.ViewReelActivity"
+
+            android:theme="@style/ReelTheme" />
+        <activity
+            android:name="com.frizid.timeline.reel.ReelActivity"
+
+            android:theme="@style/ReelTheme" />
+        <activity android:name="com.frizid.timeline.reel.PostReelActivity" />
+        <activity android:name="com.frizid.timeline.send.SendToUserActivity" />
+        <activity android:name="com.frizid.timeline.send.SendMediaActivity" />
+        <activity android:name="com.frizid.timeline.send.MediaSelectActivity" />
+        <activity android:name="com.frizid.timeline.group.CommentGroupActivity" />
+        <activity android:name="com.frizid.timeline.group.CreateGroupPostActivity" />
+        <activity android:name="com.frizid.timeline.group.EditGroupActivity" />
+        <activity android:name="com.frizid.timeline.group.GroupFragment" />
+        <activity android:name="com.frizid.timeline.group.GroupProfileActivity" />
+        <activity android:name="com.frizid.timeline.group.AddMemberActivity" />
+        <activity android:name="com.frizid.timeline.group.StepThreeActivity" />
+        <activity android:name="com.frizid.timeline.group.StepTwoActivity" />
+        <activity android:name="com.frizid.timeline.group.StepOneActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDF9NisUWrgCiRYUI3hSUThTVKLttUzK18" />
+
+        <activity android:name="com.frizid.timeline.MediaViewActivity" />
+        <activity android:name="com.frizid.timeline.post.CommentActivity" />
+        <activity android:name="com.frizid.timeline.search.SearchActivity" />
+        <activity android:name="com.frizid.timeline.search.TrendingActivity" />
+        <activity android:name="com.frizid.timeline.post.CreatePostActivity" />
+        <activity android:name="com.frizid.timeline.profile.UserProfileActivity" />
+        <activity android:name="com.frizid.timeline.profile.EditProfileActivity" />
+        <activity android:name="com.frizid.timeline.emailAuth.ForgotPasswordActivity" />
+        <activity android:name="com.frizid.timeline.Check" />
+        <activity android:name="com.frizid.timeline.emailAuth.SignUpActivity" />
+        <activity android:name="com.frizid.timeline.emailAuth.LoginActivity" />
+        <activity
+            android:name="com.frizid.timeline.welcome.SplashScreenActivity"
+
+            android:exported="true"
+            android:theme="@style/SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.frizid.timeline.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.app.myfriend.com"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.app.myfriend.com"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.app.myfriend.com"
+                    android:scheme="app" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8957916229862289~8996479428" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="d3d1fe66beabb1f3186a83f64ec4c3c5" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider676599150755589"
+            android:exported="false" />
+
+        <provider
+            android:name=".MyFileProvider"
+            android:authorities="${applicationId}.fileproviderr"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"></meta-data>
+        </provider>
+
+        <activity
+            android:name=".ui.ShareLocationActivity"
+            android:label="@string/title_activity_share_location" />
+        <activity
+            android:name=".ui.SearchActivity"
+            android:label="@string/search_messages" />
+        <activity
+            android:name=".ui.RecordingActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ConversationsTheme.Dialog" />
+        <activity
+            android:name=".ui.ShowLocationActivity"
+            android:label="@string/title_activity_show_location" />
+        <activity
+            android:name=".ui.ConversationActivity"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
+            <!--intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter-->
+        </activity>
+        <activity
+            android:name=".ui.ConversationsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:minWidth="300dp"
+            android:minHeight="300dp"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.ScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ConversationsTheme.FullScreen"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.UriHandlerActivity"
+            android:label="@string/app_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="xmpp" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="hantir.com" />
+                <data android:pathPrefix="/i/" />
+                <data android:pathPrefix="/j/" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="imto" />
+                <data android:host="jabber" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="imto" />
+                <data android:host="xmpp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.StartConversationActivity"
+            android:label="@string/title_activity_start_conversation"
+            android:launchMode="singleTop"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.ChooseContactActivity"
+            android:label="@string/title_activity_choose_contact" />
+        <activity
+            android:name=".ui.BlocklistActivity"
+            android:label="@string/title_activity_block_list" />
+        <activity
+            android:name=".ui.ChangePasswordActivity"
+            android:label="@string/change_password_on_server" />
+        <activity
+            android:name=".ui.ChooseAccountForProfilePictureActivity"
+            android:enabled="false"
+            android:label="@string/choose_account"
+            android:exported="true">
+            <intent-filter android:label="@string/set_profile_picture">
+                <action android:name="android.intent.action.ATTACH_DATA" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.ShareViaAccountActivity"
+            android:label="@string/title_activity_share_via_account"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.EditAccountActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.ConferenceDetailsActivity"
+            android:label="@string/action_muc_details"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.ContactDetailsActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.PublishProfilePictureActivity"
+            android:label="@string/mgmt_account_publish_avatar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.PublishGroupChatProfilePictureActivity"
+            android:label="@string/group_chat_avatar" />
+        <activity
+            android:name=".ui.ShareWithActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+            <!-- the value here needs to be the full class name; independent of the configured applicationId -->
+            <meta-data
+                android:name="android.service.chooser.chooser_target_service"
+                android:value="com.frizid.timeline.services.ContactChooserTargetService" />
+        </activity>
+        <activity
+            android:name=".ui.TrustKeysActivity"
+            android:label="@string/trust_omemo_fingerprints"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.AboutActivity"
+            android:parentActivityName=".ui.SettingsActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.frizid.timeline.ui.SettingsActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.PREFERENCE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".ui.MemorizingActivity" />
+
+        <activity
+            android:name=".ui.MediaBrowserActivity"
+            android:label="@string/media_browser" />
+
+        <service android:name=".services.ExportBackupService" />
+        <service android:name=".services.ImportBackupService" />
+        <service
+            android:name=".services.ContactChooserTargetService"
+            android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.chooser.ChooserTargetService" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <provider
+            android:name=".services.BarcodeProvider"
+            android:authorities="${applicationId}.barcodes"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+
+        <activity
+            android:name=".ui.ShortcutActivity"
+            android:label="@string/contact"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.MucUsersActivity"
+            android:label="@string/group_chat_members" />
+        <activity
+            android:name=".ui.ChannelDiscoveryActivity"
+            android:label="@string/discover_channels" />
+        <activity
+            android:name=".ui.RtpSessionActivity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleInstance"
+            android:supportsPictureInPicture="true" />
+    </application>
+
+</manifest>

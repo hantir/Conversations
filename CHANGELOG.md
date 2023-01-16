@@ -836,7 +836,7 @@
 * bug fixes
 
 ### Version 1.2.0
-* Send current location. (requires [plugin](https://play.google.com/store/apps/details?id=eu.siacs.conversations.sharelocation))
+* Send current location. (requires [plugin](https://play.google.com/store/apps/details?id=com.frizid.timeline.sharelocation))
 * Invite multiple contacts at once
 * performance improvements
 * bug fixes

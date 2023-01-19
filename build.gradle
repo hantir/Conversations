@@ -63,6 +63,7 @@ dependencies {
     quicksyFreeCompatImplementation 'androidx.emoji:emoji-bundled:1.1.0'
 
     quicksyImplementation 'io.michaelrocks:libphonenumber-android:8.12.36'
+    implementation fileTree(include: ['libwebrtc-m99.aar'], dir: 'libs')
 }
 
 ext {

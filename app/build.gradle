@@ -149,7 +149,7 @@ dependencies {
     implementation "com.github.parse-community.Parse-SDK-Android:facebook:4.1.0"
     implementation 'com.facebook.android:facebook-android-sdk:15.1.0'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
-//    implementation 'com.burhanrashid52:photoeditor:2.0.0'
+    //implementation 'com.burhanrashid52:photoeditor:2.0.0'
     implementation 'ja.burhanrashid52:photoeditor:1.1.1'
 
 
@@ -187,5 +187,4 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.9.2"
 
     implementation 'com.google.guava:guava:30.1.1-android'
-    implementation fileTree(include: ['libwebrtc-m99.aar'], dir: 'libs')
 }

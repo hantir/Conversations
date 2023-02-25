@@ -1,16 +1,15 @@
-package com.frizid.timeline.crypto.sasl;
+package eu.siacs.conversations.crypto.sasl;
 
-import java.security.SecureRandom;
+import javax.net.ssl.SSLSocket;
 
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.xml.TagWriter;
+import eu.siacs.conversations.entities.Account;
 
 public class Anonymous extends SaslMechanism {
 
     public static final String MECHANISM = "ANONYMOUS";
 
-    public Anonymous(TagWriter tagWriter, Account account, SecureRandom rng) {
-        super(tagWriter, account, rng);
+    public Anonymous(final Account account) {
+        super(account);
     }
 
     @Override
@@ -24,7 +23,7 @@ public class Anonymous extends SaslMechanism {
     }
 
     @Override
-    public String getClientFirstMessage() {
+    public String getClientFirstMessage(final SSLSocket sslSocket) {
         return "";
     }
 }

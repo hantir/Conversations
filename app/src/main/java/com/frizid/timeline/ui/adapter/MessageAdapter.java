@@ -1,4 +1,4 @@
-package com.frizid.timeline.ui.adapter;
+package eu.siacs.conversations.ui.adapter;
 
 import android.Manifest;
 import android.app.Activity;
@@ -37,41 +37,40 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.crypto.axolotl.FingerprintStatus;
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.entities.Conversation;
-import com.frizid.timeline.entities.Conversational;
-import com.frizid.timeline.entities.DownloadableFile;
-import com.frizid.timeline.entities.Message;
-import com.frizid.timeline.entities.Message.FileParams;
-import com.frizid.timeline.entities.RtpSessionStatus;
-import com.frizid.timeline.entities.Transferable;
-import com.frizid.timeline.persistance.FileBackend;
-import com.frizid.timeline.services.MessageArchiveService;
-import com.frizid.timeline.services.NotificationService;
-import com.frizid.timeline.ui.ConversationFragment;
-import com.frizid.timeline.ui.ConversationsActivity;
-import com.frizid.timeline.ui.XmppActivity;
-import com.frizid.timeline.ui.service.AudioPlayer;
-import com.frizid.timeline.ui.text.DividerSpan;
-import com.frizid.timeline.ui.text.QuoteSpan;
-import com.frizid.timeline.ui.util.AvatarWorkerTask;
-import com.frizid.timeline.ui.util.MyLinkify;
-import com.frizid.timeline.ui.util.QuoteHelper;
-import com.frizid.timeline.ui.util.ViewUtil;
-import com.frizid.timeline.ui.widget.ClickableMovementMethod;
-import com.frizid.timeline.utils.CryptoHelper;
-import com.frizid.timeline.utils.EmojiWrapper;
-import com.frizid.timeline.utils.Emoticons;
-import com.frizid.timeline.utils.GeoHelper;
-import com.frizid.timeline.utils.MessageUtils;
-import com.frizid.timeline.utils.StylingHelper;
-import com.frizid.timeline.utils.TimeFrameUtils;
-import com.frizid.timeline.utils.UIHelper;
-import com.frizid.timeline.xmpp.Jid;
-import com.frizid.timeline.xmpp.mam.MamReference;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.crypto.axolotl.FingerprintStatus;
+import eu.siacs.conversations.entities.Account;
+import eu.siacs.conversations.entities.Conversation;
+import eu.siacs.conversations.entities.Conversational;
+import eu.siacs.conversations.entities.DownloadableFile;
+import eu.siacs.conversations.entities.Message;
+import eu.siacs.conversations.entities.Message.FileParams;
+import eu.siacs.conversations.entities.RtpSessionStatus;
+import eu.siacs.conversations.entities.Transferable;
+import eu.siacs.conversations.persistance.FileBackend;
+import eu.siacs.conversations.services.MessageArchiveService;
+import eu.siacs.conversations.services.NotificationService;
+import eu.siacs.conversations.ui.ConversationFragment;
+import eu.siacs.conversations.ui.ConversationsActivity;
+import eu.siacs.conversations.ui.XmppActivity;
+import eu.siacs.conversations.ui.service.AudioPlayer;
+import eu.siacs.conversations.ui.text.DividerSpan;
+import eu.siacs.conversations.ui.text.QuoteSpan;
+import eu.siacs.conversations.ui.util.AvatarWorkerTask;
+import eu.siacs.conversations.ui.util.MyLinkify;
+import eu.siacs.conversations.ui.util.QuoteHelper;
+import eu.siacs.conversations.ui.util.ViewUtil;
+import eu.siacs.conversations.ui.widget.ClickableMovementMethod;
+import eu.siacs.conversations.utils.CryptoHelper;
+import eu.siacs.conversations.utils.Emoticons;
+import eu.siacs.conversations.utils.GeoHelper;
+import eu.siacs.conversations.utils.MessageUtils;
+import eu.siacs.conversations.utils.StylingHelper;
+import eu.siacs.conversations.utils.TimeFrameUtils;
+import eu.siacs.conversations.utils.UIHelper;
+import eu.siacs.conversations.xmpp.Jid;
+import eu.siacs.conversations.xmpp.mam.MamReference;
 
 public class MessageAdapter extends ArrayAdapter<Message> {
 
@@ -88,15 +87,20 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     private OnContactPictureClicked mOnContactPictureClickedListener;
     private OnContactPictureLongClicked mOnContactPictureLongClickedListener;
     private boolean mUseGreenBackground = false;
+    private final boolean mForceNames;
 
-    public MessageAdapter(XmppActivity activity, List<Message> messages) {
+    public MessageAdapter(final XmppActivity activity, final List<Message> messages, final boolean forceNames) {
         super(activity, 0, messages);
         this.audioPlayer = new AudioPlayer(this);
         this.activity = activity;
         metrics = getContext().getResources().getDisplayMetrics();
         updatePreferences();
+        this.mForceNames = forceNames;
     }
 
+    public MessageAdapter(final XmppActivity activity, final List<Message> messages) {
+        this(activity, messages, false);
+    }
 
     private static void resetClickListener(View... views) {
         for (View view : views) {
@@ -221,9 +225,6 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                             case "file-too-large":
                                 info = getContext().getString(R.string.file_too_large);
                                 break;
-                            case "service-unavailable":
-                                info = getContext().getString(R.string.service_unavailable);
-                                break;
                             default:
                                 info = getContext().getString(R.string.send_failed);
                                 break;
@@ -237,7 +238,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                 error = true;
                 break;
             default:
-                if (multiReceived) {
+                if (mForceNames || multiReceived) {
                     info = UIHelper.getMessageDisplayName(message);
                 }
                 break;
@@ -338,7 +339,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         Spannable span = new SpannableString(body);
         float size = Emoticons.isEmoji(body) ? 3.0f : 2.0f;
         span.setSpan(new RelativeSizeSpan(size), 0, body.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        viewHolder.messageBody.setText(EmojiWrapper.transform(span));
+        viewHolder.messageBody.setText(span);
     }
 
     private void applyQuoteSpan(SpannableStringBuilder body, int start, int end, boolean darkBackground) {
@@ -497,7 +498,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             }
             MyLinkify.addLinks(body, true);
             viewHolder.messageBody.setAutoLinkMask(0);
-            viewHolder.messageBody.setText(EmojiWrapper.transform(body));
+            viewHolder.messageBody.setText(body);
             viewHolder.messageBody.setMovementMethod(ClickableMovementMethod.getInstance());
         } else {
             viewHolder.messageBody.setText("");
@@ -509,11 +510,9 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         toggleWhisperInfo(viewHolder, message, darkBackground);
         viewHolder.image.setVisibility(View.GONE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
-        //viewHolder.download_button.setVisibility(View.VISIBLE);
-        //viewHolder.download_button.setText(text);
-        //viewHolder.download_button.setOnClickListener(v -> ConversationFragment.downloadFile(activity, message));
-        ConversationFragment.downloadFile(activity, message);
-        displayMediaPreviewMessage(viewHolder, message, darkBackground);
+        viewHolder.download_button.setVisibility(View.VISIBLE);
+        viewHolder.download_button.setText(text);
+        viewHolder.download_button.setOnClickListener(v -> ConversationFragment.downloadFile(activity, message));
     }
 
     private void displayOpenableMessage(ViewHolder viewHolder, final Message message, final boolean darkBackground) {
@@ -843,7 +842,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                 if (omemoEncryption && !message.isTrusted()) {
                     viewHolder.encryption.setText(R.string.not_trusted);
                 } else {
-                    //viewHolder.encryption.setText(CryptoHelper.encryptionTypeToText(message.getEncryption()));
+                    viewHolder.encryption.setText(CryptoHelper.encryptionTypeToText(message.getEncryption()));
                 }
             }
         }

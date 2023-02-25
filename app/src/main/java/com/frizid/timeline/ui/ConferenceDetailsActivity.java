@@ -1,4 +1,4 @@
-package com.frizid.timeline.ui;
+package eu.siacs.conversations.ui;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -22,39 +22,38 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.databinding.ActivityMucDetailsBinding;
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.entities.Bookmark;
-import com.frizid.timeline.entities.Conversation;
-import com.frizid.timeline.entities.MucOptions;
-import com.frizid.timeline.entities.MucOptions.User;
-import com.frizid.timeline.services.XmppConnectionService;
-import com.frizid.timeline.services.XmppConnectionService.OnConversationUpdate;
-import com.frizid.timeline.services.XmppConnectionService.OnMucRosterUpdate;
-import com.frizid.timeline.ui.adapter.MediaAdapter;
-import com.frizid.timeline.ui.adapter.UserPreviewAdapter;
-import com.frizid.timeline.ui.interfaces.OnMediaLoaded;
-import com.frizid.timeline.ui.util.Attachment;
-import com.frizid.timeline.ui.util.AvatarWorkerTask;
-import com.frizid.timeline.ui.util.GridManager;
-import com.frizid.timeline.ui.util.MenuDoubleTabUtil;
-import com.frizid.timeline.ui.util.MucConfiguration;
-import com.frizid.timeline.ui.util.MucDetailsContextMenuHelper;
-import com.frizid.timeline.ui.util.MyLinkify;
-import com.frizid.timeline.ui.util.SoftKeyboardUtils;
-import com.frizid.timeline.utils.AccountUtils;
-import com.frizid.timeline.utils.Compatibility;
-import com.frizid.timeline.utils.EmojiWrapper;
-import com.frizid.timeline.utils.StringUtils;
-import com.frizid.timeline.utils.StylingHelper;
-import com.frizid.timeline.utils.XmppUri;
-import com.frizid.timeline.xmpp.Jid;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.databinding.ActivityMucDetailsBinding;
+import eu.siacs.conversations.entities.Account;
+import eu.siacs.conversations.entities.Bookmark;
+import eu.siacs.conversations.entities.Conversation;
+import eu.siacs.conversations.entities.MucOptions;
+import eu.siacs.conversations.entities.MucOptions.User;
+import eu.siacs.conversations.services.XmppConnectionService;
+import eu.siacs.conversations.services.XmppConnectionService.OnConversationUpdate;
+import eu.siacs.conversations.services.XmppConnectionService.OnMucRosterUpdate;
+import eu.siacs.conversations.ui.adapter.MediaAdapter;
+import eu.siacs.conversations.ui.adapter.UserPreviewAdapter;
+import eu.siacs.conversations.ui.interfaces.OnMediaLoaded;
+import eu.siacs.conversations.ui.util.Attachment;
+import eu.siacs.conversations.ui.util.AvatarWorkerTask;
+import eu.siacs.conversations.ui.util.GridManager;
+import eu.siacs.conversations.ui.util.MenuDoubleTabUtil;
+import eu.siacs.conversations.ui.util.MucConfiguration;
+import eu.siacs.conversations.ui.util.MucDetailsContextMenuHelper;
+import eu.siacs.conversations.ui.util.MyLinkify;
+import eu.siacs.conversations.ui.util.SoftKeyboardUtils;
+import eu.siacs.conversations.utils.AccountUtils;
+import eu.siacs.conversations.utils.Compatibility;
+import eu.siacs.conversations.utils.StringUtils;
+import eu.siacs.conversations.utils.StylingHelper;
+import eu.siacs.conversations.utils.XmppUri;
+import eu.siacs.conversations.xmpp.Jid;
 import me.drakeet.support.toast.ToastCompat;
 
-import static com.frizid.timeline.entities.Bookmark.printableValue;
-import static com.frizid.timeline.utils.StringUtils.changed;
+import static eu.siacs.conversations.entities.Bookmark.printableValue;
+import static eu.siacs.conversations.utils.StringUtils.changed;
 
 public class ConferenceDetailsActivity extends XmppActivity implements OnConversationUpdate, OnMucRosterUpdate, XmppConnectionService.OnAffiliationChanged, XmppConnectionService.OnConfigurationPushed, XmppConnectionService.OnRoomDestroy, TextWatcher, OnMediaLoaded {
     public static final String ACTION_VIEW_MUC = "view_muc";
@@ -335,7 +334,7 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
     protected String getShareableUri(boolean http) {
         if (mConversation != null) {
             if (http) {
-                return "https://hantir.com/j/" + XmppUri.lameUrlEncode(mConversation.getJid().asBareJid().toEscapedString());
+                return "https://conversations.im/j/" + XmppUri.lameUrlEncode(mConversation.getJid().asBareJid().toEscapedString());
             } else {
                 return "xmpp:" + mConversation.getJid().asBareJid() + "?join";
             }
@@ -355,11 +354,11 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
             return true;
         }
         if (mConversation.getBookmark() != null) {
-            //menuItemSaveBookmark.setVisible(false);
-            //menuItemDeleteBookmark.setVisible(true);
+            menuItemSaveBookmark.setVisible(false);
+            menuItemDeleteBookmark.setVisible(true);
         } else {
-            //menuItemDeleteBookmark.setVisible(false);
-            //menuItemSaveBookmark.setVisible(true);
+            menuItemDeleteBookmark.setVisible(false);
+            menuItemSaveBookmark.setVisible(true);
         }
         menuItemDestroyRoom.setVisible(mConversation.getMucOptions().getSelf().getAffiliation().ranks(MucOptions.Affiliation.OWNER));
         return true;
@@ -369,8 +368,8 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
     public boolean onCreateOptionsMenu(Menu menu) {
         final boolean groupChat = mConversation != null && mConversation.isPrivateAndNonAnonymous();
         getMenuInflater().inflate(R.menu.muc_details, menu);
-        //final MenuItem share = menu.findItem(R.id.action_share);
-        //share.setVisible(!groupChat);
+        final MenuItem share = menu.findItem(R.id.action_share);
+        share.setVisible(!groupChat);
         final MenuItem destroy = menu.findItem(R.id.action_destroy_room);
         destroy.setTitle(groupChat ? R.string.destroy_room : R.string.destroy_channel);
         AccountUtils.showHideMenuItems(menu);
@@ -471,11 +470,11 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
         String subject = mucOptions.getSubject();
         final boolean hasTitle;
         if (printableValue(roomName)) {
-            this.binding.mucTitle.setText(EmojiWrapper.transform(roomName));
+            this.binding.mucTitle.setText(roomName);
             this.binding.mucTitle.setVisibility(View.VISIBLE);
             hasTitle = true;
         } else if (!printableValue(subject)) {
-            this.binding.mucTitle.setText(EmojiWrapper.transform(mConversation.getName()));
+            this.binding.mucTitle.setText(mConversation.getName());
             hasTitle = true;
             this.binding.mucTitle.setVisibility(View.VISIBLE);
         } else {
@@ -486,7 +485,7 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
             SpannableStringBuilder spannable = new SpannableStringBuilder(subject);
             StylingHelper.format(spannable, this.binding.mucSubject.getCurrentTextColor());
             MyLinkify.addLinks(spannable, false);
-            this.binding.mucSubject.setText(EmojiWrapper.transform(spannable));
+            this.binding.mucSubject.setText(spannable);
             this.binding.mucSubject.setTextAppearance(this, subject.length() > (hasTitle ? 128 : 196) ? R.style.TextAppearance_Conversations_Body1_Linkified : R.style.TextAppearance_Conversations_Subhead);
             this.binding.mucSubject.setAutoLinkMask(0);
             this.binding.mucSubject.setVisibility(View.VISIBLE);
@@ -504,8 +503,8 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
                 this.binding.mucSettings.setVisibility(View.VISIBLE);
                 this.binding.mucConferenceType.setText(MucConfiguration.describe(this, mucOptions));
             } else if (!mucOptions.isPrivateAndNonAnonymous() && mucOptions.nonanonymous()) {
-                //this.binding.mucSettings.setVisibility(View.VISIBLE);
-                //this.binding.mucConferenceType.setText(R.string.group_chat_will_make_your_jabber_id_public);
+                this.binding.mucSettings.setVisibility(View.VISIBLE);
+                this.binding.mucConferenceType.setText(R.string.group_chat_will_make_your_jabber_id_public);
             } else {
                 this.binding.mucSettings.setVisibility(View.GONE);
             }

@@ -1,4 +1,4 @@
-package com.frizid.timeline.utils;
+package eu.siacs.conversations.utils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -34,9 +34,10 @@ import de.measite.minidns.record.CNAME;
 import de.measite.minidns.record.Data;
 import de.measite.minidns.record.InternetAddressRR;
 import de.measite.minidns.record.SRV;
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.services.XmppConnectionService;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.services.XmppConnectionService;
+import eu.siacs.conversations.xmpp.Jid;
 
 public class Resolver {
 
@@ -82,6 +83,10 @@ public class Resolver {
         result.directTls = useDirectTls(port);
         result.authenticated = true;
         return Collections.singletonList(result);
+    }
+
+    public static void checkDomain(final Jid jid) {
+        DNSName.from(jid.getDomain());
     }
 
     public static boolean invalidHostname(final String hostname) {

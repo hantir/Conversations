@@ -26,20 +26,20 @@
             app:errorTextAppearance="@style/TextAppearance.Conversations.Design.Error"
             app:hintTextAppearance="@style/TextAppearance.Conversations.Design.Hint">
 
-            <com.frizid.timeline.ui.widget.EmojiWrapperEditText
+            <EditText
                 android:id="@+id/group_chat_name"
                 style="@style/Widget.Conversations.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_dialog_channel_name"
-                android:imeOptions="actionNext|flagNoExtractUi" />
+                android:imeOptions="actionNext|flagNoExtractUi"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/xmpp_address_layout"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/public_room_xmpp_address"
+            android:hint="@string/xmpp_address"
             app:errorTextAppearance="@style/TextAppearance.Conversations.Design.Error"
             app:hintTextAppearance="@style/TextAppearance.Conversations.Design.Hint">
 
@@ -49,11 +49,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:focusable="false"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:imeOptions="actionDone|flagNoExtractUi"
-                android:visibility="gone"/>
+                android:imeOptions="actionDone|flagNoExtractUi"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </layout>

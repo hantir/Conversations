@@ -47,15 +47,18 @@
                                 android:layout_width="@dimen/avatar_on_details_screen_size"
                                 android:layout_height="@dimen/avatar_on_details_screen_size"
                                 android:layout_alignParentStart="true"
-                                app:riv_corner_radius="2dp"
-                                android:layout_marginEnd="@dimen/avatar_item_distance" />
+                                app:riv_corner_radius="8dp"
+                                android:layout_marginEnd="@dimen/avatar_item_distance"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="@dimen/avatar_item_distance" />
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
                                 android:layout_toEndOf="@+id/your_photo"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/your_photo">
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -67,7 +70,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentStart="true"
                                         android:layout_toStartOf="@+id/edit_muc_name_button"
-                                        android:orientation="vertical">
+                                        android:orientation="vertical"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_toLeftOf="@+id/edit_muc_name_button">
 
                                         <TextView
                                             android:id="@+id/muc_title"
@@ -91,7 +96,9 @@
                                         android:layout_alignParentStart="true"
                                         android:layout_toStartOf="@+id/edit_muc_name_button"
                                         android:orientation="vertical"
-                                        android:visibility="gone">
+                                        android:visibility="gone"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_toLeftOf="@+id/edit_muc_name_button">
 
                                         <com.google.android.material.textfield.TextInputLayout
                                             android:layout_width="match_parent"
@@ -99,7 +106,7 @@
                                             app:errorTextAppearance="@style/TextAppearance.Conversations.Design.Error"
                                             app:hintTextAppearance="@style/TextAppearance.Conversations.Design.Hint">
 
-                                            <com.frizid.timeline.ui.widget.EmojiWrapperEditText
+                                            <EditText
                                                 android:id="@+id/muc_edit_title"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
@@ -113,7 +120,7 @@
                                             app:errorTextAppearance="@style/TextAppearance.Conversations.Design.Error"
                                             app:hintTextAppearance="@style/TextAppearance.Conversations.Design.Hint">
 
-                                            <com.frizid.timeline.ui.widget.EmojiWrapperEditText
+                                            <EditText
                                                 android:id="@+id/muc_edit_subject"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
@@ -132,7 +139,8 @@
                                         android:alpha="?attr/icon_alpha"
                                         android:background="?attr/selectableItemBackgroundBorderless"
                                         android:padding="@dimen/image_button_padding"
-                                        android:src="?attr/icon_edit_body" />
+                                        android:src="?attr/icon_edit_body"
+                                        android:layout_alignParentRight="true" />
                                 </RelativeLayout>
                             </LinearLayout>
                         </RelativeLayout>
@@ -149,7 +157,9 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
                                 android:layout_toStartOf="@+id/change_conference_button"
-                                android:textAppearance="@style/TextAppearance.Conversations.Body1" />
+                                android:textAppearance="@style/TextAppearance.Conversations.Body1"
+                                android:layout_alignParentLeft="true"
+                                android:layout_toLeftOf="@+id/change_conference_button" />
 
                             <ImageButton
                                 android:id="@+id/change_conference_button"
@@ -162,7 +172,8 @@
                                 android:alpha="?attr/icon_alpha"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="@dimen/image_button_padding"
-                                android:src="?attr/icon_settings" />
+                                android:src="?attr/icon_settings"
+                                android:layout_alignParentRight="true" />
                         </RelativeLayout>
 
                         <TableLayout
@@ -203,8 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:layout_marginTop="32dp"
-                            android:textAppearance="@style/TextAppearance.Conversations.Caption"
-                            android:visibility="gone"/>
+                            android:textAppearance="@style/TextAppearance.Conversations.Caption"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -323,7 +333,8 @@
                                 android:alpha="?attr/icon_alpha"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="@dimen/image_button_padding"
-                                android:src="?attr/icon_edit_body" />
+                                android:src="?attr/icon_edit_body"
+                                android:layout_alignParentRight="true" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -338,7 +349,9 @@
                                 android:layout_centerVertical="true"
                                 android:layout_toStartOf="@+id/notification_status_button"
                                 android:text="@string/notify_on_all_messages"
-                                android:textAppearance="@style/TextAppearance.Conversations.Body1" />
+                                android:textAppearance="@style/TextAppearance.Conversations.Body1"
+                                android:layout_alignParentLeft="true"
+                                android:layout_toLeftOf="@+id/notification_status_button" />
 
                             <ImageButton
                                 android:id="@+id/notification_status_button"
@@ -351,7 +364,8 @@
                                 android:alpha="?attr/icon_alpha"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="@dimen/image_button_padding"
-                                android:src="?attr/icon_notifications" />
+                                android:src="?attr/icon_notifications"
+                                android:layout_alignParentRight="true" />
                         </RelativeLayout>
 
                         <TextView

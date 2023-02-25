@@ -1,9 +1,7 @@
-package com.frizid.timeline.ui.adapter;
+package eu.siacs.conversations.ui.adapter;
 
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,24 +9,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.wefika.flowlayout.FlowLayout;
 
 import java.util.List;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.databinding.ContactBinding;
-import com.frizid.timeline.entities.ListItem;
-import com.frizid.timeline.ui.SettingsActivity;
-import com.frizid.timeline.ui.XmppActivity;
-import com.frizid.timeline.ui.util.AvatarWorkerTask;
-import com.frizid.timeline.ui.util.StyledAttributes;
-import com.frizid.timeline.utils.EmojiWrapper;
-import com.frizid.timeline.utils.IrregularUnicodeDetector;
-import com.frizid.timeline.xmpp.Jid;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.databinding.ContactBinding;
+import eu.siacs.conversations.entities.ListItem;
+import eu.siacs.conversations.ui.SettingsActivity;
+import eu.siacs.conversations.ui.XmppActivity;
+import eu.siacs.conversations.ui.util.AvatarWorkerTask;
+import eu.siacs.conversations.ui.util.StyledAttributes;
+import eu.siacs.conversations.utils.IrregularUnicodeDetector;
+import eu.siacs.conversations.xmpp.Jid;
 
 public class ListItemAdapter extends ArrayAdapter<ListItem> {
 
@@ -67,7 +62,6 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 		view.setBackground(StyledAttributes.getDrawable(view.getContext(),R.attr.list_item_background));
-		Log.d("jid_valeu", item.getJid().toString());
 
 		List<ListItem.Tag> tags = item.getTags(activity);
 		if (tags.size() == 0 || !this.showDynamicTags) {
@@ -84,31 +78,14 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
 			}
 		}
 		final Jid jid = item.getJid();
-		/*if (jid != null) {
+		if (jid != null) {
 			viewHolder.jid.setVisibility(View.VISIBLE);
 			viewHolder.jid.setText(IrregularUnicodeDetector.style(activity, jid));
 		} else {
 			viewHolder.jid.setVisibility(View.GONE);
-		}*/
-		viewHolder.name.setText(EmojiWrapper.transform(item.getDisplayName()));
+		}
+		viewHolder.name.setText(item.getDisplayName());
 		AvatarWorkerTask.loadAvatar(item, viewHolder.avatar, R.dimen.avatar);
-
-		if (jid.getDomain().toString().contains("conference.hantir.com")) {
-			viewHolder.jid.setVisibility(View.GONE);
-		}
-		else
-			{
-				viewHolder.jid.setVisibility(View.VISIBLE);
-				if (tags.size() == 0 ) {
-					viewHolder.jid.setTextColor(ContextCompat.getColor(getContext(), R.color.grey500));
-					viewHolder.jid.setText("Offline");
-				} else
-				{
-					viewHolder.jid.setTextColor(ContextCompat.getColor(getContext(), R.color.green800));
-					viewHolder.jid.setTypeface(null, Typeface.BOLD);
-					viewHolder.jid.setText(tags.get(0).getName());
-				}
-		}
 		return view;
 	}
 

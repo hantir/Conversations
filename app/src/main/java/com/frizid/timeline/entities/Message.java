@@ -1,4 +1,4 @@
-package com.frizid.timeline.entities;
+package eu.siacs.conversations.entities;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -14,23 +14,25 @@ import org.json.JSONException;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.crypto.axolotl.FingerprintStatus;
-import com.frizid.timeline.http.URL;
-import com.frizid.timeline.services.AvatarService;
-import com.frizid.timeline.ui.util.PresenceSelector;
-import com.frizid.timeline.utils.CryptoHelper;
-import com.frizid.timeline.utils.Emoticons;
-import com.frizid.timeline.utils.GeoHelper;
-import com.frizid.timeline.utils.MessageUtils;
-import com.frizid.timeline.utils.MimeUtils;
-import com.frizid.timeline.utils.UIHelper;
-import com.frizid.timeline.xmpp.Jid;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.crypto.axolotl.AxolotlService;
+import eu.siacs.conversations.crypto.axolotl.FingerprintStatus;
+import eu.siacs.conversations.http.URL;
+import eu.siacs.conversations.services.AvatarService;
+import eu.siacs.conversations.ui.util.PresenceSelector;
+import eu.siacs.conversations.utils.CryptoHelper;
+import eu.siacs.conversations.utils.Emoticons;
+import eu.siacs.conversations.utils.GeoHelper;
+import eu.siacs.conversations.utils.MessageUtils;
+import eu.siacs.conversations.utils.MimeUtils;
+import eu.siacs.conversations.utils.UIHelper;
+import eu.siacs.conversations.xmpp.Jid;
 
 public class Message extends AbstractEntity implements AvatarService.Avatarable {
 
@@ -85,7 +87,7 @@ public class Message extends AbstractEntity implements AvatarService.Avatarable 
     public static final String DELETED = "deleted";
     public static final String ME_COMMAND = "/me ";
 
-    public static final String ERROR_MESSAGE_CANCELLED = "com.frizid.timeline.cancelled";
+    public static final String ERROR_MESSAGE_CANCELLED = "eu.siacs.conversations.cancelled";
 
 
     public boolean markable = false;
@@ -632,9 +634,8 @@ public class Message extends AbstractEntity implements AvatarService.Avatarable 
                         message.getEncryption() != Message.ENCRYPTION_PGP &&
                         message.getEncryption() != Message.ENCRYPTION_DECRYPTION_FAILED &&
                         this.getType() == message.getType() &&
-                        //this.getStatus() == message.getStatus() &&
                         isStatusMergeable(this.getStatus(), message.getStatus()) &&
-                        this.getEncryption() == message.getEncryption() &&
+                        isEncryptionMergeable(this.getEncryption(),message.getEncryption()) &&
                         this.getCounterpart() != null &&
                         this.getCounterpart().equals(message.getCounterpart()) &&
                         this.edited() == message.edited() &&
@@ -665,6 +666,12 @@ public class Message extends AbstractEntity implements AvatarService.Avatarable 
                         || (a == Message.STATUS_SEND && b == Message.STATUS_UNSEND)
                         || (a == Message.STATUS_SEND && b == Message.STATUS_WAITING)
         );
+    }
+
+    private static boolean isEncryptionMergeable(final int a, final int b) {
+        return a == b
+                && Arrays.asList(ENCRYPTION_NONE, ENCRYPTION_DECRYPTED, ENCRYPTION_AXOLOTL)
+                        .contains(a);
     }
 
     public void setCounterparts(List<MucOptions.User> counterparts) {
@@ -917,7 +924,8 @@ public class Message extends AbstractEntity implements AvatarService.Avatarable 
     }
 
     public boolean isTrusted() {
-        FingerprintStatus s = conversation.getAccount().getAxolotlService().getFingerprintTrust(axolotlFingerprint);
+        final AxolotlService axolotlService = conversation.getAccount().getAxolotlService();
+        final FingerprintStatus s = axolotlService != null ? axolotlService.getFingerprintTrust(axolotlFingerprint) : null;
         return s != null && s.isTrusted();
     }
 

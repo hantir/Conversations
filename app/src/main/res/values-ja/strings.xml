@@ -1,300 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <string name="app_name">Myfriend</string>
-
-    <string-array name="privacy">
-        <item>Everyone</item>
-        <item>Followers</item>
-        <item>No one</item>
-    </string-array>
-
-    <!-- Email -->
-
-
-    <string-array name="encryption_mode_values">
-        <item>AES-128-XTS</item>
-        <item>AES-256-XTS</item>
-    </string-array>
-
-    <string-array name="string_array_resolutions">
-        <item>160x120</item>
-        // 120P
-        <item>320x180</item>
-        // 180P
-        <item>320x240</item>
-        // 240P the default one
-        <item>640x360</item>
-        // 360P
-        <item>640x480</item>
-        // 480P
-        <item>1280x720</item>
-        // 720P
-    </string-array>
-
-    <string-array name="string_array_frame_rate">
-        <item>1</item>
-        <item>7</item>
-        <item>10</item>
-        <item>15</item>
-        // the default one
-        <item>24</item>
-        <item>30</item>
-    </string-array>
-
-    <string-array name="type">
-        <item>Used</item>
-        <item>New</item>
-    </string-array>
-
-    <string-array name="cat">
-        <item>Autos &amp; Vehicles</item>
-        <item>Baby &amp; Children\s Products</item>
-        <item>Beauty Products &amp; Services</item>
-        <item>Computers</item>
-        <item>Electronics</item>
-        <item>Dating</item>
-        <item>Financial</item>
-        <item>Gift</item>
-        <item>Home</item>
-        <item>Others</item>
-    </string-array>
-
-      <!-- Paste Native Ad unit id here for admob -->
-      <!-- Paste Banner Ad unit id here for admob -->
-
-    <string name="msg_connection_error">接続エラー。ネットワーク設定を確認するか、チャネル名/アクセストークンが有効であることを確認してください</string>
-    <string name="verification_about">確認済みのバッジは、アカウントに表示されるチェックであり、アカウントが著名な著名人、有名人、グローバルブランド、またはエンティティの本物の存在であることを示します。リクエストを送信しても、アカウントが確認される保証はありません。</string>
-    <string name="add_members">メンバーを追加</string>
-    <string name="post">役職</string>
-    <string name="analysis">分析</string>
-    <string name="online">オンライン</string>
-    <string name="products">製品</string>
-    <string name="messages">メッセージ</string>
-    <string name="dashboard">ダッシュボード</string>
-    <string name="reported_users">報告されたユーザー</string>
-    <string name="reported_groups">報告されたグループ</string>
-    <string name="reported_posts">報告された投稿</string>
-    <string name="reported_reels">報告されたリール</string>
-    <string name="verification_requests">確認リクエスト</string>
-    <string name="remove_verified_users">確認済みユーザーを削除する</string>
-    <string name="warned_users">警告ユーザー</string>
-    <string name="warned_groups">警告されたグループ</string>
-    <string name="ads">広告</string>
-    <string name="post_video_image_amp_text_with_hashtag_and_mention_your_nfriends_shivanshu_wwe">ビデオ、画像を投稿する</string>
-    <string name="comments">コメントコメント</string>
-    <string name="like">好き</string>
-    <string name="type_a_comment" tools:ignore="TypographyEllipsis">コメントを入力してください...</string>
-    <string name="create_post">投稿を作成</string>
-    <string name="everyone">みんな</string>
-    <string name="add_location">場所を追加</string>
-    <string name="add_to_your_post">投稿に追加</string>
-    <string name="edit_your_email">メールを編集する</string>
-    <string name="new_email">新しいメール</string>
-    <string name="bio">バイオ</string>
-    <string name="privatetext">民間</string>
-    <string name="phone_no">電話番号。</string>
-    <string name="edit_your_phone_no">電話番号を編集します。</string>
-    <string name="new_phone_no">新しい電話番号</string>
-    <string name="edit_your_password">パスワードを編集する</string>
-    <string name="change">変化する</string>
-    <string name="hold_for_video_tap_for_photo">ビデオの場合はホールド、写真の場合はタップ</string>
-    <string name="masks">マスク</string>
-    <string name="effects">効果</string>
-    <string name="filters">フィルタ</string>
-    <string name="feelings">気持ち</string>
-    <string name="travelling">旅行</string>
-    <string name="watching">見て</string>
-    <string name="listening">聞いている</string>
-    <string name="thinking_about">について考える</string>
-    <string name="celebration">お祝い</string>
-    <string name="looking_for">探している</string>
-    <string name="playing">遊ぶ</string>
-    <string name="happy">幸せ</string>
-    <string name="loved">愛された</string>
-    <string name="sad">悲しい</string>
-    <string name="crying">泣いている</string>
-    <string name="angry">怒り</string>
-    <string name="confused">混乱している</string>
-    <string name="broken">壊れた</string>
-    <string name="cool">涼しい</string>
-    <string name="funny">面白い</string>
-    <string name="tired">疲れた</string>
-    <string name="shock">ショック</string>
-    <string name="lovely">素晴らしい</string>
-    <string name="sleepy">眠る</string>
-    <string name="expressionless">無表情</string>
-    <string name="blessed">祝福された</string>
-    <string name="forgot_password">パスワードをお忘れですか</string>
-    <string name="to_reset_your_password_enter_the_registered_email_a_link_will_be_sent_on_this_email_to_reset_your_password">パスワードをリセットするには、登録したメールアドレスを入力してください。パスワードをリセットするためのリンクがこのメールに送信されます</string>
-    <string name="send_link">リンクを送信</string>
-    <string name="type_your_phone_number">電話番号を入力してください</string>
-    <string name="generate_otp">OTPを生成する</string>
-    <string name="continue_with_email_instead">代わりにメールを続ける</string>
-    <string name="send_a_message" tools:ignore="TypographyEllipsis">メッセージを送る...</string>
-    <string name="my_groups">私のグループ</string>
-    <string name="members">メンバー</string>
-    <string name="edit_profile">プロファイル編集</string>
-    <string name="join_request">参加リクエスト</string>
-    <string name="cancel_request">リクエストのキャンセル</string>
-    <string name="what_s_on_your_mind">何を考えているの ？</string>
-    <string name="invite_members">メンバーを招待する</string>
-    <string name="set_a_location">場所を設定する</string>
-    <string name="login_in_to_continue">ログインして続行します</string>
-    <string name="login">ログイン</string>
-    <string name="create_new_account">新しいアカウントを作成する</string>
-    <string name="menu">メニュー</string>
-    <string name="marketplace">市場</string>
-    <string name="night_mode">ナイトモード</string>
-    <string name="photo_editor">写真編集者</string>
-    <string name="video_editor">動画編集者</string>
-    <string name="verification">検証</string>
-    <string name="policy">ポリシー</string>
-    <string name="edit_password">パスワードの編集</string>
-    <string name="edit_number">番号の編集</string>
-    <string name="edit_mail">メールを編集</string>
-    <string name="near_by">近く</string>
-    <string name="log_out">ログアウト</string>
-    <string name="admin_panel">管理パネル</string>
-    <string name="notifications">通知</string>
-    <string name="party_post">パーティーポスト</string>
-    <string name="post_about_your_watch_party">ウォッチパーティーについて投稿する</string>
-    <string name="what_s_on_your_mind_mention_hashtag">何を考えているの ？ @言及</string>
-    <string name="set_watch_party_privacy">ウォッチパーティーのプライバシーを設定する</string>
-    <string name="private_watch_party">プライベートウォッチパーティー</string>
-    <string name="public_watch_party">パブリックウォッチパーティー</string>
-    <string name="sell_product">製品を売る</string>
-    <string name="title">タイトル</string>
-    <string name="price">価格</string>
-    <string name="category">カテゴリー</string>
-    <string name="condition">調子</string>
-    <string name="description">説明</string>
-    <string name="post_reel">ポストリール</string>
-    <string name="describe_you_video_mention_hashtag">ビデオを説明してください@Mention</string>
-    <string name="privacy">プライバシー</string>
-    <string name="allow_comments">コメントを許可します</string>
-    <string name="remove">削除する</string>
-    <string name="known_as">として知られている</string>
-    <string name="government_id">政府ID</string>
-    <string name="poke">ポーク</string>
-    <string name="reject">拒絶</string>
-    <string name="apps">アプリ</string>
-    <string name="download">ダウンロード</string>
-    <string name="copy">コピー</string>
-    <string name="liked_by">好きな人</string>
-    <string name="rainy_shoes">雨の靴</string>
-    <string name="camera">カメラ</string>
-    <string name="add_audio">オーディオを追加</string>
-    <string name="background_colour">背景色</string>
-    <string name="add_gif">GIFを追加</string>
-    <string name="feeling_activity">感情/活動</string>
-    <string name="add_reels">リールを追加する</string>
-    <string name="go_live">ライブ配信</string>
-    <string name="create_podcast">ポッドキャストを作成する</string>
-    <string name="add_stories">ストーリーを追加する</string>
-    <string name="views">ビュー</string>
-    <string name="podcast">ポッドキャスト</string>
-    <string name="paste_video_link_from_web">Webからビデオリンクを貼り付けます</string>
-    <string name="supports_youtube_amp_dailymotion">YouTubeをサポート</string>
-    <string name="link">リンク</string>
-    <string name="upload_any_video_you_want">必要なビデオをアップロードする</string>
-    <string name="textview">TextView</string>
-    <string name="paste_the_meeting_id">会議IDを貼り付けます</string>
-    <string name="meeting_id">ミーティングID</string>
-    <string name="add_post">投稿を追加</string>
-    <string name="report">報告する</string>
-    <string name="document">書類</string>
-    <string name="for_you">あなたのために</string>
-    <string name="following">続く</string>
-    <string name="no_reels">リールなし</string>
-    <string name="followers">フォロワー</string>
-    <string name="send_a_comment" tools:ignore="TypographyEllipsis">コメントを送信...</string>
-    <string name="live">住む</string>
-    <string name="delete_photo">写真を削除</string>
-    <string name="create_a_new_meeting">新しい会議を作成する</string>
-    <string name="upload_photo">写真をアップする</string>
-    <string name="upload_video">ビデオをアップロード</string>
-    <string name="liked">いいね</string>
-    <string name="likes">いいね</string>
-    <string name="add_image">画像を追加</string>
-    <string name="add_video">ビデオを追加</string>
-    <string name="sent_stickers_gif">ステッカーを送信しました</string>
-    <string name="add_recorder">レコーダを追加</string>
-    <string name="create_room_meeting">部屋/会議を作成する</string>
-    <string name="add_document">ドキュメントを追加</string>
-    <string name="time">時間 -</string>
-    <string name="full_screen">全画面表示</string>
-    <string name="post_background">投稿の背景</string>
-    <string name="announcement">発表</string>
-    <string name="send">送信</string>
-    <string name="create_reel">リールを作成する</string>
-    <string name="sell_something">何かを売る</string>
-    <string name="video_paused">ビデオの一時停止</string>
-    <string name="muted">ミュート</string>
-    <string name="type_6_digit_otp">タイプ6桁のOTP</string>
-    <string name="enter_otp">OTPを入力してください</string>
-    <string name="verify_otp">OTPを確認する</string>
-    <string name="full_name">フルネーム</string>
-    <string name="government_issued_photo_id_link">政府発行の写真付き身分証明書リンク</string>
-    <string name="follow">従う</string>
-    <string name="unfollow">フォロー解除</string>
-    <string name="trending">トレンド</string>
-    <string name="music">音楽</string>
-    <string name="sports">スポーツ</string>
-    <string name="memes">ミーム</string>
-    <string name="vines">ブドウの木</string>
-    <string name="tv_amp_movies">テレビ</string>
-    <string name="animals">動物</string>
-    <string name="diy">DIY</string>
-    <string name="beauty">美しさ</string>
-    <string name="art">美術</string>
-    <string name="food">食べ物</string>
-    <string name="style">スタイル</string>
-    <string name="decor">装飾</string>
-    <string name="politics">政治</string>
-    <string name="highlight">ハイライト</string>
-    <string name="profile_photo">プロフィール写真</string>
-    <string name="upload_group_photo">集合写真をアップロード</string>
-    <string name="upload">アップロード</string>
-    <string name="cover_photo">カバー写真</string>
-    <string name="upload_group_cover">グループカバーをアップロード</string>
-    <string name="create_group">グループを作成</string>
-    <string name="fill_details_to_continue">続行するには詳細を入力してください</string>
-    <string name="watch_party">ウォッチパーティー</string>
-    <string name="web">ウェブ</string>
-    <string name="sign_up_to_continue">続行するにはサインアップしてください</string>
-    <string name="email">Eメール</string>
-    <string name="already_have_an_account_login">すでにアカウントをお持ちですか ？ログイン</string>
-    <string name="send_to">に送る</string>
-    <string name="add_to_reels">リールに追加</string>
-    <string name="add_to_story">ストーリーに追加</string>
-    <string name="add_to_post">投稿に追加</string>
-    <string name="send_to_user">ユーザーに送信</string>
-    <string name="send_to_group">グループに送信</string>
-    <string name="add_to_product">製品に追加</string>
-    <string name="edit_video">ビデオの編集</string>
-    <string name="edit_image">画像を編集</string>
-    <string name="users">ユーザー</string>
-    <string name="posts">投稿</string>
-    <string name="groups">グループ</string>
-    <string name="market">市場</string>
-    <string name="nearby">近く</string>
-    <string name="load_more">もっと読み込む</string>
-    <string name="saved">保存しました</string>
-    <string name="reels">リール</string>
-    <string name="nothing_found">何も見つかりません</string>
-    <string name="calling" tools:ignore="TypographyEllipsis">呼び出しています...</string>
-    <string name="new_account">新しいアカウント</string>
-    <string name="name">名前</string>
-    <string name="type_profile_details">タイププロファイルの詳細</string>
-    <string name="sign_up">サインアップ</string>
-    <string name="meetings">ミーティング</string>
-    <string name="terms_amp_condtitions">条項</string>
-    <string name="change_theme">テーマの変更</string>
-    <string name="send_gif">GIFを送信する</string>
-    <string name="dim_mode">薄暗いモード</string>
-
-<string name="action_settings">設定</string>
+<resources>
+    <string name="action_settings">設定</string>
     <string name="action_add">新しい会話</string>
     <string name="action_accounts">アカウントを管理</string>
     <string name="action_account">アカウントを管理</string>
@@ -325,13 +31,12 @@
     <string name="minutes_ago">%d分前</string>
     <plurals name="x_unread_conversations">
         <item quantity="other">%d件の未読の会話</item>
-
     </plurals>
     <string name="sending">送信中…</string>
     <string name="message_decrypting">メッセージを復号しています。しばらくお待ちください…</string>
     <string name="pgp_message">OpenPGP 暗号化メッセージ</string>
     <string name="nick_in_use">ニックネームは既に使用されています</string>
-    <string name="invalid_muc_nick">不正なニックネーム</string>
+    <string name="invalid_muc_nick">このニックネームは使えません</string>
     <string name="admin">管理者</string>
     <string name="owner">所有者</string>
     <string name="moderator">調停者</string>
@@ -424,7 +129,7 @@
     <string name="pref_confirm_messages">メッセージを確認</string>
     <string name="pref_confirm_messages_summary">あなたがメッセージを受信して読んだときに、連絡先に知らせる</string>
     <string name="pref_prevent_screenshots">スクリーンショットを防ぐ</string>
-    <string name="pref_prevent_screenshots_summary">アプリスイッチャーでアプリの内容を隠し、スクリーンショットを防ぐ</string>
+    <string name="pref_prevent_screenshots_summary">アプリスイッチャー内でアプリの内容を隠し、スクリーンショットを防ぐ</string>
     <string name="pref_ui_options">UI</string>
     <string name="openpgp_error">OpenKeychain でエラーが発生しました。</string>
     <string name="bad_key_for_encryption">暗号化の鍵が不正です。</string>
@@ -461,9 +166,10 @@
     <string name="account_status_tls_error_domain">検証不可能なドメイン</string>
     <string name="account_status_policy_violation">ポリシー違反</string>
     <string name="account_status_incompatible_server">互換性のないサーバー</string>
+    <string name="account_status_incompatible_client">互換性のない端末</string>
     <string name="account_status_stream_error">ストリーム エラー</string>
     <string name="account_status_stream_opening_error">ストリームを開く際にエラー</string>
-    <string name="encryption_choice_unencrypted">暗号化されていない</string>
+    <string name="encryption_choice_unencrypted">暗号化しない</string>
     <string name="encryption_choice_otr">OTR</string>
     <string name="encryption_choice_pgp">OpenPGP</string>
     <string name="encryption_choice_omemo">OMEMO</string>
@@ -511,9 +217,11 @@
     <string name="openpgp_key_id">OpenPGP 鍵 ID</string>
     <string name="omemo_fingerprint">OMEMO フィンガープリント</string>
     <string name="omemo_fingerprint_x509">v\\OMEMO フィンガープリント</string>
+    <string name="omemo_fingerprint_selected_message">OMEMO フィンガープリント (メッセージ起源)</string>
+    <string name="omemo_fingerprint_x509_selected_message">v\\OMEMO フィンガープリント (メッセージ起源)</string>
     <string name="other_devices">他のデバイス</string>
     <string name="trust_omemo_fingerprints">OMEMO フィンガープリントを信頼</string>
-    <string name="fetching_keys">鍵の取得中…</string>
+    <string name="fetching_keys">暗号鍵の取得中…</string>
     <string name="done">完了</string>
     <string name="decrypt">復号</string>
     <string name="bookmarks">ブックマーク</string>
@@ -583,8 +291,7 @@
     <string name="title_pref_enable_quiet_hours">消音時間を有効化</string>
     <string name="pref_quiet_hours_summary">消音時間の間、通知は無音になります</string>
     <string name="pref_expert_options_other">その他</string>
-    <string name="pref_autojoin">ブックマークと同期</string>
-    <string name="pref_autojoin_summary">ブックマークに従って、グループチャットに自動で参加します。</string>
+    <string name="pref_autojoin">ブックマーク同期</string>
     <string name="toast_message_omemo_fingerprint">OMEMO フィンガープリントをクリップボードにコピーしました</string>
     <string name="conference_banned">このグループチャットから出禁にされています</string>
     <string name="conference_members_only">このグループチャットはメンバー制です</string>
@@ -592,6 +299,7 @@
     <string name="conference_kicked">このグループチャットから蹴り出されています</string>
     <string name="conference_shutdown">このグループチャットは閉鎖されました</string>
     <string name="conference_unknown_error">あなたはもうこのグループチャットに参加していません</string>
+    <string name="conference_technical_problems">技術的理由の為、あなたはこのグループチャットを離れました</string>
     <string name="using_account">アカウント %s を使用</string>
     <string name="hosted_on">%s 上でホストされた</string>
     <string name="checking_x">HTTP ホスト上の %s を確認中</string>
@@ -615,7 +323,7 @@
     <string name="confirm">確認</string>
     <string name="try_again">再試行</string>
     <string name="pref_keep_foreground_service">フォアグラウンドサービス</string>
-    <string name="pref_keep_foreground_service_summary">オペレーティングシステムが接続を切断するのを防止します</string>
+    <string name="pref_keep_foreground_service_summary">OSが接続を切断するのを防止します</string>
     <string name="pref_create_backup">バックアップを作成</string>
     <string name="pref_create_backup_summary">バックアップファイルは %s に保存されます </string>
     <string name="notification_create_backup_title">バックアップファイルを作成しています</string>
@@ -640,7 +348,7 @@
     <string name="no_application_found_to_open_file">ファイルを開くアプリケーションが見つかりません</string>
     <string name="no_application_found_to_open_link">リンクを開くアプリケーションが見つかりません</string>
     <string name="no_application_found_to_view_contact">連絡先を表示するアプリケーションが見つかりません</string>
-    <string name="pref_show_dynamic_tags">ダイナミック タグ</string>
+    <string name="pref_show_dynamic_tags">タグ付け</string>
     <string name="pref_show_dynamic_tags_summary">連絡先の下に、読み取り専用タグを表示します</string>
     <string name="enable_notifications">通知を有効化</string>
     <string name="no_conference_server_found">グループチャットのサーバーが見つかりませんでした</string>
@@ -706,6 +414,7 @@
     <string name="video">ビデオ</string>
     <string name="image">画像</string>
     <string name="vector_graphic">ベクター画像</string>
+    <string name="multimedia_file">マルチメディアファイル</string>
     <string name="pdf_document">PDF 文書</string>
     <string name="apk">Android アプリ</string>
     <string name="vcard">連絡先</string>
@@ -753,6 +462,7 @@
     <string name="download_failed_file_not_found">ダウンロードに失敗しました: ファイルが見つかりません</string>
     <string name="download_failed_could_not_connect">ダウンロードに失敗しました: ホストに接続できませんでした</string>
     <string name="download_failed_could_not_write_file">ダウンロードに失敗しました: ファイルに書き込みできません</string>
+    <string name="download_failed_invalid_file">ダウンロード失敗: 無効なファイル</string>
     <string name="account_status_tor_unavailable">Tor ネットワークが利用できません</string>
     <string name="account_status_bind_failure">バインド失敗</string>
     <string name="account_status_host_unknown">そのサーバーはこのドメインに責任を持ちません</string>
@@ -801,7 +511,7 @@
     <string name="no_storage_permission">%1$s に外部ストレージへのアクセス権を付与してください</string>
     <string name="no_camera_permission">%1$s にカメラへのアクセス権を付与</string>
     <string name="sync_with_contacts">連絡先と同期</string>
-    <string name="sync_with_contacts_long">%1$s はあなたのアドレス帳にアクセスして、あなたのXMPP 連絡先名簿と照合する権限を求めています。\nこれにより、連絡先のフルネームとアバターが表示されます。\n\n%1$s は、あなたのサーバーに何かをアップロードすることなく、あなたのアドレス帳を読み込んでローカルに照合するだけです。</string>
+    <string name="sync_with_contacts_long">%1$s はあなたのアドレス帳にアクセスして、あなたのXMPP 連絡先名簿と照合する権限を求めています。\nこれにより、連絡先のフルネームとアバターが表示されます。\n\n%1$s は、あなたのサーバーに何かをアップロードすることなく、あなたのアドレス帳を読み込んで照合するだけです。</string>
     <string name="sync_with_contacts_quicksy"><![CDATA[Quicksyは、既にQuicksyに登録されている連絡先を提案するために、あなたの連絡先の電話番号にアクセスする必要があります。<br><br>Quicksyは、それらの電話番号のコピーを保存することはありません。\n\n詳細は<a href="https://quicksy.im/#privacy">プライバシーポリシー</a>をご覧ください。<br><br>今、連絡先へのアクセス権限を付与するよう求められます。]]></string>
     <string name="notify_on_all_messages">すべてのメッセージで通知</string>
     <string name="notify_only_when_highlighted">メンションされたときにのみ通知</string>
@@ -825,7 +535,7 @@
     <string name="security_error_invalid_file_access">セキュリティエラー: 不正なファイルアクセス!</string>
     <string name="no_application_to_share_uri">URI を共有するアプリが見つかりません</string>
     <string name="share_uri_with">…で URI を共有</string>
-    <string name="welcome_text_quicksy"><![CDATA[Quicksy は人気の XMPP クライアント Conversations の派生で、連絡先の自動検出機能を備えています。<br><br>電話番号を入力して登録すると、アドレス帳に登録されている電話番号をもとに、Quicksyが自動的に連絡先を提案します。<br><br>登録すると、<a href="https://quicksy.im/#privacy">我々のプライバシーポリシー</a>に同意することになります。]]></string>
+    <string name="welcome_text_quicksy"><![CDATA[Quicksy は人気のXMPPアプリConversationsの派生で、連絡先の自動検出機能を備えています。<br><br>電話番号を入力して登録すると、アドレス帳に登録されている電話番号をもとに、Quicksyが自動的に連絡先を提案します。<br><br>登録すると、<a href=\"https://quicksy.im/#privacy\">我々のプライバシーポリシー</a>に同意することになります。]]></string>
     <string name="agree_and_continue">同意して続行</string>
     <string name="magic_create_text">conversations.im 上にアカウントを作成する設定の指南です。¹\nconversations.im をプロバイダーとして選択した場合、あなたの完全な XMPP アドレスを他のプロバイダーのユーザーに示すことで、その人と連絡をとることができます。</string>
     <string name="your_full_jid_will_be">あなたの完全なXMPPアドレスは: %s</string>
@@ -898,10 +608,10 @@
     <string name="share_as_barcode">バーコードで共有</string>
     <string name="share_as_uri">XMPP URI で共有</string>
     <string name="share_as_http">HTTP リンクで共有</string>
-    <string name="pref_blind_trust_before_verification">検証前の盲目的な信頼</string>
+    <string name="pref_blind_trust_before_verification">認証前で鍵を使用</string>
     <string name="pref_blind_trust_before_verification_summary">認証されていない連絡先からの新規デバイスを信頼するが、認証されている連絡先からの新規デバイスについては手動での確認を求める。</string>
-    <string name="blindly_trusted_omemo_keys">OMEMO 鍵を盲目的に信用していた。つまり、他の人かもしれないし、誰かが盗聴しているかもしれない。</string>
-    <string name="not_trusted">信頼できない</string>
+    <string name="blindly_trusted_omemo_keys">認証せずOMEMO 鍵を信用しています。このままでは盗聴される危険性があります。</string>
+    <string name="not_trusted">信頼されていない</string>
     <string name="invalid_barcode">不正な二次元バーコード</string>
     <string name="pref_clean_cache_summary">キャッシュフォルダを消去します (カメラアプリで使用)</string>
     <string name="pref_clean_cache">キャッシュを消去</string>
@@ -909,6 +619,8 @@
     <string name="pref_clean_private_storage_summary">ファイルが保存されているプライベートストレージを消去します (サーバーから再ダウンロードできます)</string>
     <string name="i_followed_this_link_from_a_trusted_source">信頼できるソースからこのリンクをたどりました</string>
     <string name="verifying_omemo_keys_trusted_source">リンクをクリックした後、%1$s の OMEMO 鍵を検証しようとしています。 これは、%2$s がこのリンクを公開した、信頼できるソースからこのリンクをたどった場合にのみ安全です。</string>
+    <string name="verifying_omemo_keys_trusted_source_account">あなたが所有するアカウントの OMEMO 鍵を検証しようとしています。 これは、あなたがこのリンクを公開した、信頼できるソースからこのリンクをたどった場合にのみ安全です。</string>
+    <string name="continue_btn">続行</string>
     <string name="verify_omemo_keys">OMEMO 鍵を検証</string>
     <string name="show_inactive_devices">非アクティブを表示</string>
     <string name="hide_inactive_devices">非アクティブを非表示</string>
@@ -969,7 +681,7 @@
     <string name="mtm_accept_cert">未知の証明書を受け入れますか?</string>
     <string name="mtm_trust_anchor">サーバー証明書が既知の認証局によって署名されていません。</string>
     <string name="mtm_accept_servername">不一致のサーバー名を受け入れますか?</string>
-    <string name="mtm_hostname_mismatch">サーバーは\&quot;%s\&quot;として認証できませんでした。証明書は次の場合にのみ有効です:</string>
+    <string name="mtm_hostname_mismatch">サーバーは\"%s\"として認証できませんでした。証明書は次の場合にのみ有効です:</string>
     <string name="mtm_connect_anyway">それでも接続を希望しますか?</string>
     <string name="mtm_cert_details">証明書の詳細:</string>
     <string name="once">一度だけ</string>
@@ -1042,6 +754,7 @@
     <string name="messages_channel_name">メッセージ</string>
     <string name="incoming_calls_channel_name">着信通話</string>
     <string name="ongoing_calls_channel_name">継続中の通話</string>
+    <string name="missed_calls_channel_name">不在着信</string>
     <string name="silent_messages_channel_name">サイレントメッセージ</string>
     <string name="silent_messages_channel_description">この通知グループは、音を鳴らしてはいけない通知を表示するために使用します。例えば、他のデバイスでアクティブになっているときなどです (猶予期間)。</string>
     <string name="delivery_failed_channel_name">配信に失敗</string>
@@ -1181,12 +894,14 @@
     <string name="make_call">通話をする</string>
     <string name="rtp_state_incoming_call">着信通話</string>
     <string name="rtp_state_incoming_video_call">着信映像通話</string>
+    <string name="rtp_state_content_add_video">ビデオ通話に切り替えますか？</string>
     <string name="rtp_state_connecting">接続中</string>
     <string name="rtp_state_connected">接続しました</string>
+    <string name="rtp_state_reconnecting">再接続中</string>
     <string name="rtp_state_accepting_call">通話受入</string>
     <string name="rtp_state_ending_call">通話終了</string>
     <string name="answer_call">応答</string>
-    <string name="dismiss_call">解散</string>
+    <string name="dismiss_call">拒否</string>
     <string name="rtp_state_finding_device">デバイス発見</string>
     <string name="rtp_state_ringing">鳴動</string>
     <string name="rtp_state_declined_or_busy">取込中</string>
@@ -1198,6 +913,8 @@
     <string name="hang_up">電話を切る</string>
     <string name="ongoing_call">継続中の通話</string>
     <string name="ongoing_video_call">継続中の映像通話</string>
+    <string name="reconnecting_call">通話再接続中</string>
+    <string name="reconnecting_video_call">ビデオ通話再接続中</string>
     <string name="disable_tor_to_make_call">通話するのに Tor を無効化</string>
     <string name="incoming_call">着信通話</string>
     <string name="incoming_call_duration">着信通話・%s</string>
@@ -1205,8 +922,18 @@
     <string name="outgoing_call">発信通話</string>
     <string name="outgoing_call_duration">発信通話・%s</string>
     <string name="missed_call">不在着信通話</string>
+    <plurals name="n_missed_calls_from_x">
+        <item quantity="other">%2$sから%1$d件の不在着信</item>
+    </plurals>
+    <plurals name="n_missed_calls">
+        <item quantity="other">不在着信%d件</item>
+    </plurals>
+    <plurals name="n_missed_calls_from_m_contacts">
+        <item quantity="other">%2$d人から%1$d件の不在着信</item>
+    </plurals>
     <string name="audio_call">音声通話</string>
     <string name="video_call">映像通話</string>
+    <string name="help">ヘルプ</string>
     <string name="switch_to_conversation">会話に切り替え</string>
     <string name="microphone_unavailable">マイクが利用できません</string>
     <string name="only_one_call_at_a_time">1度に1回線の通話のみ。</string>
@@ -1244,4 +971,10 @@
     <string name="backup_started_message">バックアップを開始しました。 バックアップが完了すると通知が届きます。</string>
     <string name="unable_to_enable_video">映像を有効化できません。</string>
     <string name="plain_text_document">プレーンテキスト文書</string>
+    <string name="account_registrations_are_not_supported">アカウント登録はサポートされていません</string>
+    <string name="no_xmpp_adddress_found">XMPPアドレスがみつかりません</string>
+    <string name="account_status_temporary_auth_failure">一時的な認証失敗</string>
+    <string name="delete_avatar">アバターを削除</string>
+    <string name="audio_video_disabled_tor">Tor使用中のため通話できません</string>
+    <string name="switch_to_video">ビデオ通話切替</string>
 </resources>

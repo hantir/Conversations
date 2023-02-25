@@ -1,4 +1,4 @@
-package com.frizid.timeline.ui;
+package eu.siacs.conversations.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -46,6 +46,7 @@ import android.widget.Toast;
 
 import androidx.annotation.BoolRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
@@ -60,31 +61,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.crypto.PgpEngine;
-import com.frizid.timeline.databinding.DialogQuickeditBinding;
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.entities.Contact;
-import com.frizid.timeline.entities.Conversation;
-import com.frizid.timeline.entities.Message;
-import com.frizid.timeline.entities.Presences;
-import com.frizid.timeline.services.AvatarService;
-import com.frizid.timeline.services.BarcodeProvider;
-import com.frizid.timeline.services.QuickConversationsService;
-import com.frizid.timeline.services.XmppConnectionService;
-import com.frizid.timeline.services.XmppConnectionService.XmppConnectionBinder;
-import com.frizid.timeline.ui.service.EmojiService;
-import com.frizid.timeline.ui.util.MenuDoubleTabUtil;
-import com.frizid.timeline.ui.util.PresenceSelector;
-import com.frizid.timeline.ui.util.SoftKeyboardUtils;
-import com.frizid.timeline.utils.AccountUtils;
-import com.frizid.timeline.utils.ExceptionHelper;
-import com.frizid.timeline.ui.util.SettingsUtils;
-import com.frizid.timeline.utils.ThemeHelper;
-import com.frizid.timeline.xmpp.Jid;
-import com.frizid.timeline.xmpp.OnKeyStatusUpdated;
-import com.frizid.timeline.xmpp.OnUpdateBlocklist;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.crypto.PgpEngine;
+import eu.siacs.conversations.databinding.DialogQuickeditBinding;
+import eu.siacs.conversations.entities.Account;
+import eu.siacs.conversations.entities.Contact;
+import eu.siacs.conversations.entities.Conversation;
+import eu.siacs.conversations.entities.Message;
+import eu.siacs.conversations.entities.Presences;
+import eu.siacs.conversations.services.AvatarService;
+import eu.siacs.conversations.services.BarcodeProvider;
+import eu.siacs.conversations.services.EmojiInitializationService;
+import eu.siacs.conversations.services.QuickConversationsService;
+import eu.siacs.conversations.services.XmppConnectionService;
+import eu.siacs.conversations.services.XmppConnectionService.XmppConnectionBinder;
+import eu.siacs.conversations.ui.util.MenuDoubleTabUtil;
+import eu.siacs.conversations.ui.util.PresenceSelector;
+import eu.siacs.conversations.ui.util.SoftKeyboardUtils;
+import eu.siacs.conversations.utils.AccountUtils;
+import eu.siacs.conversations.utils.Compatibility;
+import eu.siacs.conversations.utils.ExceptionHelper;
+import eu.siacs.conversations.ui.util.SettingsUtils;
+import eu.siacs.conversations.utils.ThemeHelper;
+import eu.siacs.conversations.xmpp.Jid;
+import eu.siacs.conversations.xmpp.OnKeyStatusUpdated;
+import eu.siacs.conversations.xmpp.OnUpdateBlocklist;
 
 public abstract class XmppActivity extends ActionBarActivity {
 
@@ -408,7 +410,7 @@ public abstract class XmppActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         metrics = getResources().getDisplayMetrics();
         ExceptionHelper.init(getApplicationContext());
-        new EmojiService(this).init();
+        EmojiInitializationService.execute(this);
         this.isCameraFeatureAvailable = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
         this.mTheme = findTheme();
         setTheme(this.mTheme);
@@ -447,7 +449,7 @@ public abstract class XmppActivity extends ActionBarActivity {
             final ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             return cm != null
                     && cm.isActiveNetworkMetered()
-                    && cm.getRestrictBackgroundStatus() == ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED;
+                    && Compatibility.getRestrictBackgroundStatus(cm) == ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED;
         } else {
             return false;
         }

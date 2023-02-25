@@ -1,18 +1,24 @@
-package com.frizid.timeline.crypto.sasl;
+package eu.siacs.conversations.crypto.sasl;
 
 import android.util.Base64;
 
 import java.nio.charset.Charset;
 
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.xml.TagWriter;
+import javax.net.ssl.SSLSocket;
+
+import eu.siacs.conversations.entities.Account;
 
 public class Plain extends SaslMechanism {
 
     public static final String MECHANISM = "PLAIN";
 
-    public Plain(final TagWriter tagWriter, final Account account) {
-        super(tagWriter, account, null);
+    public Plain(final Account account) {
+        super(account);
+    }
+
+    public static String getMessage(String username, String password) {
+        final String message = '\u0000' + username + '\u0000' + password;
+        return Base64.encodeToString(message.getBytes(Charset.defaultCharset()), Base64.NO_WRAP);
     }
 
     @Override
@@ -26,12 +32,7 @@ public class Plain extends SaslMechanism {
     }
 
     @Override
-    public String getClientFirstMessage() {
+    public String getClientFirstMessage(final SSLSocket sslSocket) {
         return getMessage(account.getUsername(), account.getPassword());
-    }
-
-    public static String getMessage(String username, String password) {
-        final String message = '\u0000' + username + '\u0000' + password;
-        return Base64.encodeToString(message.getBytes(Charset.defaultCharset()), Base64.NO_WRAP);
     }
 }

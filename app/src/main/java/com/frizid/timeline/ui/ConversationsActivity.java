@@ -27,10 +27,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.frizid.timeline.ui;
+package eu.siacs.conversations.ui;
 
 
-import static com.frizid.timeline.ui.ConversationFragment.REQUEST_DECRYPT_PGP;
+import static eu.siacs.conversations.ui.ConversationFragment.REQUEST_DECRYPT_PGP;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -62,38 +62,37 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.crypto.OmemoSetting;
-import com.frizid.timeline.databinding.ActivityConversationsBinding;
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.entities.Contact;
-import com.frizid.timeline.entities.Conversation;
-import com.frizid.timeline.entities.Conversational;
-import com.frizid.timeline.services.XmppConnectionService;
-import com.frizid.timeline.ui.interfaces.OnBackendConnected;
-import com.frizid.timeline.ui.interfaces.OnConversationArchived;
-import com.frizid.timeline.ui.interfaces.OnConversationRead;
-import com.frizid.timeline.ui.interfaces.OnConversationSelected;
-import com.frizid.timeline.ui.interfaces.OnConversationsListItemUpdated;
-import com.frizid.timeline.ui.util.ActionBarUtil;
-import com.frizid.timeline.ui.util.ActivityResult;
-import com.frizid.timeline.ui.util.ConversationMenuConfigurator;
-import com.frizid.timeline.ui.util.MenuDoubleTabUtil;
-import com.frizid.timeline.ui.util.PendingItem;
-import com.frizid.timeline.utils.EmojiWrapper;
-import com.frizid.timeline.utils.ExceptionHelper;
-import com.frizid.timeline.utils.SignupUtils;
-import com.frizid.timeline.utils.XmppUri;
-import com.frizid.timeline.xmpp.Jid;
-import com.frizid.timeline.xmpp.OnUpdateBlocklist;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.crypto.OmemoSetting;
+import eu.siacs.conversations.databinding.ActivityConversationsBinding;
+import eu.siacs.conversations.entities.Account;
+import eu.siacs.conversations.entities.Contact;
+import eu.siacs.conversations.entities.Conversation;
+import eu.siacs.conversations.entities.Conversational;
+import eu.siacs.conversations.services.XmppConnectionService;
+import eu.siacs.conversations.ui.interfaces.OnBackendConnected;
+import eu.siacs.conversations.ui.interfaces.OnConversationArchived;
+import eu.siacs.conversations.ui.interfaces.OnConversationRead;
+import eu.siacs.conversations.ui.interfaces.OnConversationSelected;
+import eu.siacs.conversations.ui.interfaces.OnConversationsListItemUpdated;
+import eu.siacs.conversations.ui.util.ActionBarUtil;
+import eu.siacs.conversations.ui.util.ActivityResult;
+import eu.siacs.conversations.ui.util.ConversationMenuConfigurator;
+import eu.siacs.conversations.ui.util.MenuDoubleTabUtil;
+import eu.siacs.conversations.ui.util.PendingItem;
+import eu.siacs.conversations.utils.ExceptionHelper;
+import eu.siacs.conversations.utils.SignupUtils;
+import eu.siacs.conversations.utils.XmppUri;
+import eu.siacs.conversations.xmpp.Jid;
+import eu.siacs.conversations.xmpp.OnUpdateBlocklist;
 
 public class ConversationsActivity extends XmppActivity implements OnConversationSelected, OnConversationArchived, OnConversationsListItemUpdated, OnConversationRead, XmppConnectionService.OnAccountUpdate, XmppConnectionService.OnConversationUpdate, XmppConnectionService.OnRosterUpdate, OnUpdateBlocklist, XmppConnectionService.OnShowErrorToast, XmppConnectionService.OnAffiliationChanged {
 
-    public static final String ACTION_VIEW_CONVERSATION = "com.frizid.timeline.action.VIEW";
+    public static final String ACTION_VIEW_CONVERSATION = "eu.siacs.conversations.action.VIEW";
     public static final String EXTRA_CONVERSATION = "conversationUuid";
-    public static final String EXTRA_DOWNLOAD_UUID = "com.frizid.timeline.download_uuid";
-    public static final String EXTRA_AS_QUOTE = "com.frizid.timeline.as_quote";
+    public static final String EXTRA_DOWNLOAD_UUID = "eu.siacs.conversations.download_uuid";
+    public static final String EXTRA_AS_QUOTE = "eu.siacs.conversations.as_quote";
     public static final String EXTRA_NICK = "nick";
     public static final String EXTRA_IS_PRIVATE_MESSAGE = "pm";
     public static final String EXTRA_DO_NOT_APPEND = "do_not_append";
@@ -146,7 +145,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
             return;
         }
         xmppConnectionService.getNotificationService().setIsInForeground(true);
-        Intent intent = pendingViewIntent.pop();
+        final Intent intent = pendingViewIntent.pop();
         if (intent != null) {
             if (processViewIntent(intent)) {
                 if (binding.secondaryFragment != null) {
@@ -160,7 +159,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
             notifyFragmentOfBackendConnected(id);
         }
 
-        ActivityResult activityResult = postponedActivityResult.pop();
+        final ActivityResult activityResult = postponedActivityResult.pop();
         if (activityResult != null) {
             handleActivityResult(activityResult);
         }
@@ -208,7 +207,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
             if (ExceptionHelper.checkForCrash(this)) {
                 return;
             }
-            //openBatteryOptimizationDialogIfNeeded();
+            openBatteryOptimizationDialogIfNeeded();
         }
     }
 
@@ -222,8 +221,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
     }
 
     private void openBatteryOptimizationDialogIfNeeded() {
-        if (hasAccountWithoutPush()
-                && isOptimizingBattery()
+        if (isOptimizingBattery()
                 && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
                 && getPreferences().getBoolean(getBatteryOptimizationPreferenceKey(), true)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -244,15 +242,6 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
         }
-    }
-
-    private boolean hasAccountWithoutPush() {
-        for (Account account : xmppConnectionService.getAccounts()) {
-            if (account.getStatus() == Account.State.ONLINE && !xmppConnectionService.getPushManagementService().available(account)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void notifyFragmentOfBackendConnected(@IdRes int id) {
@@ -391,7 +380,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.main_fragment);
                 boolean visible = getResources().getBoolean(R.bool.show_qr_code_scan)
                         && fragment instanceof ConversationsOverviewFragment;
-                qrCodeScanMenuItem.setVisible(false);
+                qrCodeScanMenuItem.setVisible(visible);
             } else {
                 qrCodeScanMenuItem.setVisible(false);
             }
@@ -625,7 +614,7 @@ public class ConversationsActivity extends XmppActivity implements OnConversatio
         if (mainFragment instanceof ConversationFragment) {
             final Conversation conversation = ((ConversationFragment) mainFragment).getConversation();
             if (conversation != null) {
-                actionBar.setTitle(EmojiWrapper.transform(conversation.getName()));
+                actionBar.setTitle(conversation.getName());
                 actionBar.setDisplayHomeAsUpEnabled(true);
                 ActionBarUtil.setActionBarOnClickListener(
                         binding.toolbar,

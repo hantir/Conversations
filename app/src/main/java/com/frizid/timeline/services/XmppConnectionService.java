@@ -1,4 +1,7 @@
-package com.frizid.timeline.services;
+package eu.siacs.conversations.services;
+
+import static eu.siacs.conversations.utils.Compatibility.s;
+import static eu.siacs.conversations.utils.Random.SECURE_RANDOM;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -45,10 +48,12 @@ import android.util.Pair;
 
 import androidx.annotation.BoolRes;
 import androidx.annotation.IntegerRes;
+import androidx.annotation.NonNull;
 import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 
 import org.conscrypt.Conscrypt;
@@ -57,10 +62,10 @@ import org.openintents.openpgp.util.OpenPgpApi;
 import org.openintents.openpgp.util.OpenPgpServiceConnection;
 
 import java.io.File;
-import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -81,90 +86,91 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.frizid.timeline.Config;
-import com.frizid.timeline.R;
-import com.frizid.timeline.android.JabberIdContact;
-import com.frizid.timeline.crypto.OmemoSetting;
-import com.frizid.timeline.crypto.PgpDecryptionService;
-import com.frizid.timeline.crypto.PgpEngine;
-import com.frizid.timeline.crypto.axolotl.AxolotlService;
-import com.frizid.timeline.crypto.axolotl.FingerprintStatus;
-import com.frizid.timeline.crypto.axolotl.XmppAxolotlMessage;
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.entities.Blockable;
-import com.frizid.timeline.entities.Bookmark;
-import com.frizid.timeline.entities.Contact;
-import com.frizid.timeline.entities.Conversation;
-import com.frizid.timeline.entities.Conversational;
-import com.frizid.timeline.entities.Message;
-import com.frizid.timeline.entities.MucOptions;
-import com.frizid.timeline.entities.MucOptions.OnRenameListener;
-import com.frizid.timeline.entities.Presence;
-import com.frizid.timeline.entities.PresenceTemplate;
-import com.frizid.timeline.entities.Roster;
-import com.frizid.timeline.entities.ServiceDiscoveryResult;
-import com.frizid.timeline.generator.AbstractGenerator;
-import com.frizid.timeline.generator.IqGenerator;
-import com.frizid.timeline.generator.MessageGenerator;
-import com.frizid.timeline.generator.PresenceGenerator;
-import com.frizid.timeline.http.HttpConnectionManager;
-import com.frizid.timeline.parser.AbstractParser;
-import com.frizid.timeline.parser.IqParser;
-import com.frizid.timeline.parser.MessageParser;
-import com.frizid.timeline.parser.PresenceParser;
-import com.frizid.timeline.persistance.DatabaseBackend;
-import com.frizid.timeline.persistance.FileBackend;
-import com.frizid.timeline.ui.ChooseAccountForProfilePictureActivity;
-import com.frizid.timeline.ui.RtpSessionActivity;
-import com.frizid.timeline.ui.SettingsActivity;
-import com.frizid.timeline.ui.UiCallback;
-import com.frizid.timeline.ui.interfaces.OnAvatarPublication;
-import com.frizid.timeline.ui.interfaces.OnMediaLoaded;
-import com.frizid.timeline.ui.interfaces.OnSearchResultsAvailable;
-import com.frizid.timeline.utils.Compatibility;
-import com.frizid.timeline.utils.ConversationsFileObserver;
-import com.frizid.timeline.utils.CryptoHelper;
-import com.frizid.timeline.utils.EasyOnboardingInvite;
-import com.frizid.timeline.utils.ExceptionHelper;
-import com.frizid.timeline.utils.MimeUtils;
-import com.frizid.timeline.utils.PhoneHelper;
-import com.frizid.timeline.utils.QuickLoader;
-import com.frizid.timeline.utils.ReplacingSerialSingleThreadExecutor;
-import com.frizid.timeline.utils.ReplacingTaskManager;
-import com.frizid.timeline.utils.Resolver;
-import com.frizid.timeline.utils.SerialSingleThreadExecutor;
-import com.frizid.timeline.utils.StringUtils;
-import com.frizid.timeline.utils.TorServiceUtils;
-import com.frizid.timeline.utils.WakeLockHelper;
-import com.frizid.timeline.utils.XmppUri;
-import com.frizid.timeline.xml.Element;
-import com.frizid.timeline.xml.LocalizedContent;
-import com.frizid.timeline.xml.Namespace;
-import com.frizid.timeline.xmpp.Jid;
-import com.frizid.timeline.xmpp.OnBindListener;
-import com.frizid.timeline.xmpp.OnContactStatusChanged;
-import com.frizid.timeline.xmpp.OnIqPacketReceived;
-import com.frizid.timeline.xmpp.OnKeyStatusUpdated;
-import com.frizid.timeline.xmpp.OnMessageAcknowledged;
-import com.frizid.timeline.xmpp.OnMessagePacketReceived;
-import com.frizid.timeline.xmpp.OnPresencePacketReceived;
-import com.frizid.timeline.xmpp.OnStatusChanged;
-import com.frizid.timeline.xmpp.OnUpdateBlocklist;
-import com.frizid.timeline.xmpp.Patches;
-import com.frizid.timeline.xmpp.XmppConnection;
-import com.frizid.timeline.xmpp.chatstate.ChatState;
-import com.frizid.timeline.xmpp.forms.Data;
-import com.frizid.timeline.xmpp.jingle.AbstractJingleConnection;
-import com.frizid.timeline.xmpp.jingle.JingleConnectionManager;
-import com.frizid.timeline.xmpp.jingle.JingleRtpConnection;
-import com.frizid.timeline.xmpp.jingle.Media;
-import com.frizid.timeline.xmpp.jingle.RtpEndUserState;
-import com.frizid.timeline.xmpp.mam.MamReference;
-import com.frizid.timeline.xmpp.pep.Avatar;
-import com.frizid.timeline.xmpp.pep.PublishOptions;
-import com.frizid.timeline.xmpp.stanzas.IqPacket;
-import com.frizid.timeline.xmpp.stanzas.MessagePacket;
-import com.frizid.timeline.xmpp.stanzas.PresencePacket;
+import eu.siacs.conversations.Config;
+import eu.siacs.conversations.R;
+import eu.siacs.conversations.android.JabberIdContact;
+import eu.siacs.conversations.crypto.OmemoSetting;
+import eu.siacs.conversations.crypto.PgpDecryptionService;
+import eu.siacs.conversations.crypto.PgpEngine;
+import eu.siacs.conversations.crypto.axolotl.AxolotlService;
+import eu.siacs.conversations.crypto.axolotl.FingerprintStatus;
+import eu.siacs.conversations.crypto.axolotl.XmppAxolotlMessage;
+import eu.siacs.conversations.entities.Account;
+import eu.siacs.conversations.entities.Blockable;
+import eu.siacs.conversations.entities.Bookmark;
+import eu.siacs.conversations.entities.Contact;
+import eu.siacs.conversations.entities.Conversation;
+import eu.siacs.conversations.entities.Conversational;
+import eu.siacs.conversations.entities.Message;
+import eu.siacs.conversations.entities.MucOptions;
+import eu.siacs.conversations.entities.MucOptions.OnRenameListener;
+import eu.siacs.conversations.entities.Presence;
+import eu.siacs.conversations.entities.PresenceTemplate;
+import eu.siacs.conversations.entities.Roster;
+import eu.siacs.conversations.entities.ServiceDiscoveryResult;
+import eu.siacs.conversations.generator.AbstractGenerator;
+import eu.siacs.conversations.generator.IqGenerator;
+import eu.siacs.conversations.generator.MessageGenerator;
+import eu.siacs.conversations.generator.PresenceGenerator;
+import eu.siacs.conversations.http.HttpConnectionManager;
+import eu.siacs.conversations.parser.AbstractParser;
+import eu.siacs.conversations.parser.IqParser;
+import eu.siacs.conversations.parser.MessageParser;
+import eu.siacs.conversations.parser.PresenceParser;
+import eu.siacs.conversations.persistance.DatabaseBackend;
+import eu.siacs.conversations.persistance.FileBackend;
+import eu.siacs.conversations.persistance.UnifiedPushDatabase;
+import eu.siacs.conversations.ui.ChooseAccountForProfilePictureActivity;
+import eu.siacs.conversations.ui.RtpSessionActivity;
+import eu.siacs.conversations.ui.SettingsActivity;
+import eu.siacs.conversations.ui.UiCallback;
+import eu.siacs.conversations.ui.interfaces.OnAvatarPublication;
+import eu.siacs.conversations.ui.interfaces.OnMediaLoaded;
+import eu.siacs.conversations.ui.interfaces.OnSearchResultsAvailable;
+import eu.siacs.conversations.utils.AccountUtils;
+import eu.siacs.conversations.utils.Compatibility;
+import eu.siacs.conversations.utils.ConversationsFileObserver;
+import eu.siacs.conversations.utils.CryptoHelper;
+import eu.siacs.conversations.utils.EasyOnboardingInvite;
+import eu.siacs.conversations.utils.ExceptionHelper;
+import eu.siacs.conversations.utils.MimeUtils;
+import eu.siacs.conversations.utils.PhoneHelper;
+import eu.siacs.conversations.utils.QuickLoader;
+import eu.siacs.conversations.utils.ReplacingSerialSingleThreadExecutor;
+import eu.siacs.conversations.utils.ReplacingTaskManager;
+import eu.siacs.conversations.utils.Resolver;
+import eu.siacs.conversations.utils.SerialSingleThreadExecutor;
+import eu.siacs.conversations.utils.StringUtils;
+import eu.siacs.conversations.utils.TorServiceUtils;
+import eu.siacs.conversations.utils.WakeLockHelper;
+import eu.siacs.conversations.utils.XmppUri;
+import eu.siacs.conversations.xml.Element;
+import eu.siacs.conversations.xml.LocalizedContent;
+import eu.siacs.conversations.xml.Namespace;
+import eu.siacs.conversations.xmpp.Jid;
+import eu.siacs.conversations.xmpp.OnBindListener;
+import eu.siacs.conversations.xmpp.OnContactStatusChanged;
+import eu.siacs.conversations.xmpp.OnIqPacketReceived;
+import eu.siacs.conversations.xmpp.OnKeyStatusUpdated;
+import eu.siacs.conversations.xmpp.OnMessageAcknowledged;
+import eu.siacs.conversations.xmpp.OnMessagePacketReceived;
+import eu.siacs.conversations.xmpp.OnPresencePacketReceived;
+import eu.siacs.conversations.xmpp.OnStatusChanged;
+import eu.siacs.conversations.xmpp.OnUpdateBlocklist;
+import eu.siacs.conversations.xmpp.XmppConnection;
+import eu.siacs.conversations.xmpp.chatstate.ChatState;
+import eu.siacs.conversations.xmpp.forms.Data;
+import eu.siacs.conversations.xmpp.jingle.AbstractJingleConnection;
+import eu.siacs.conversations.xmpp.jingle.JingleConnectionManager;
+import eu.siacs.conversations.xmpp.jingle.JingleRtpConnection;
+import eu.siacs.conversations.xmpp.jingle.Media;
+import eu.siacs.conversations.xmpp.jingle.RtpEndUserState;
+import eu.siacs.conversations.xmpp.mam.MamReference;
+import eu.siacs.conversations.xmpp.pep.Avatar;
+import eu.siacs.conversations.xmpp.pep.PublishOptions;
+import eu.siacs.conversations.xmpp.stanzas.IqPacket;
+import eu.siacs.conversations.xmpp.stanzas.MessagePacket;
+import eu.siacs.conversations.xmpp.stanzas.PresencePacket;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class XmppConnectionService extends Service {
@@ -172,7 +178,8 @@ public class XmppConnectionService extends Service {
     public static final String ACTION_REPLY_TO_CONVERSATION = "reply_to_conversations";
     public static final String ACTION_MARK_AS_READ = "mark_as_read";
     public static final String ACTION_SNOOZE = "snooze";
-    public static final String ACTION_CLEAR_NOTIFICATION = "clear_notification";
+    public static final String ACTION_CLEAR_MESSAGE_NOTIFICATION = "clear_message_notification";
+    public static final String ACTION_CLEAR_MISSED_CALL_NOTIFICATION = "clear_missed_call_notification";
     public static final String ACTION_DISMISS_ERROR_NOTIFICATIONS = "dismiss_error";
     public static final String ACTION_TRY_AGAIN = "try_again";
     public static final String ACTION_IDLE_PING = "idle_ping";
@@ -181,7 +188,8 @@ public class XmppConnectionService extends Service {
     public static final String ACTION_DISMISS_CALL = "dismiss_call";
     public static final String ACTION_END_CALL = "end_call";
     public static final String ACTION_PROVISION_ACCOUNT = "provision_account";
-    private static final String ACTION_POST_CONNECTIVITY_CHANGE = "com.frizid.timeline.POST_CONNECTIVITY_CHANGE";
+    private static final String ACTION_POST_CONNECTIVITY_CHANGE = "eu.siacs.conversations.POST_CONNECTIVITY_CHANGE";
+    public static final String ACTION_RENEW_UNIFIED_PUSH_ENDPOINTS = "eu.siacs.conversations.UNIFIED_PUSH_RENEW";
 
     private static final String SETTING_LAST_ACTIVITY_TS = "last_activity_timestamp";
 
@@ -214,6 +222,7 @@ public class XmppConnectionService extends Service {
     private final FileBackend fileBackend = new FileBackend(this);
     private MemorizingTrustManager mMemorizingTrustManager;
     private final NotificationService mNotificationService = new NotificationService(this);
+    private final UnifiedPushBroker unifiedPushBroker = new UnifiedPushBroker(this);
     private final ChannelDiscoveryService mChannelDiscoveryService = new ChannelDiscoveryService(this);
     private final ShortcutService mShortcutService = new ShortcutService(this);
     private final AtomicBoolean mInitialAddressbookSyncCompleted = new AtomicBoolean(false);
@@ -372,10 +381,10 @@ public class XmppConnectionService extends Service {
             connectMultiModeConversations(account);
             syncDirtyContacts(account);
 
+            unifiedPushBroker.renewUnifiedPushEndpointsOnBind(account);
         }
     };
     private final AtomicLong mLastExpiryRun = new AtomicLong(0);
-    private SecureRandom mRandom;
     private final LruCache<Pair<String, String>, ServiceDiscoveryResult> discoCache = new LruCache<>(20);
     private final OnStatusChanged statusListener = new OnStatusChanged() {
 
@@ -447,7 +456,7 @@ public class XmppConnectionService extends Service {
                     Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": went into offline state during low ping mode. reconnecting now");
                     reconnectAccount(account, true, false);
                 } else {
-                    int timeToReconnect = mRandom.nextInt(10) + 2;
+                    final int timeToReconnect = SECURE_RANDOM.nextInt(10) + 2;
                     scheduleWakeUpCall(timeToReconnect, account.getUuid().hashCode());
                 }
             } else if (account.getStatus() == Account.State.REGISTRATION_SUCCESSFUL) {
@@ -667,19 +676,35 @@ public class XmppConnectionService extends Service {
                 case Intent.ACTION_SHUTDOWN:
                     logoutAndSave(true);
                     return START_NOT_STICKY;
-                case ACTION_CLEAR_NOTIFICATION:
+                case ACTION_CLEAR_MESSAGE_NOTIFICATION:
                     mNotificationExecutor.execute(() -> {
                         try {
                             final Conversation c = findConversationByUuid(uuid);
                             if (c != null) {
-                                mNotificationService.clear(c);
+                                mNotificationService.clearMessages(c);
                             } else {
-                                mNotificationService.clear();
+                                mNotificationService.clearMessages();
                             }
                             restoredFromDatabaseLatch.await();
 
                         } catch (InterruptedException e) {
-                            Log.d(Config.LOGTAG, "unable to process clear notification");
+                            Log.d(Config.LOGTAG, "unable to process clear message notification");
+                        }
+                    });
+                    break;
+                case ACTION_CLEAR_MISSED_CALL_NOTIFICATION:
+                    mNotificationExecutor.execute(() -> {
+                        try {
+                            final Conversation c = findConversationByUuid(uuid);
+                            if (c != null) {
+                                mNotificationService.clearMissedCalls(c);
+                            } else {
+                                mNotificationService.clearMissedCalls();
+                            }
+                            restoredFromDatabaseLatch.await();
+
+                        } catch (InterruptedException e) {
+                            Log.d(Config.LOGTAG, "unable to process clear missed call notification");
                         }
                     });
                     break;
@@ -766,7 +791,7 @@ public class XmppConnectionService extends Service {
                             return;
                         }
                         c.setMutedTill(System.currentTimeMillis() + 30 * 60 * 1000);
-                        mNotificationService.clear(c);
+                        mNotificationService.clearMessages(c);
                         updateConversation(c);
                     });
                 case AudioManager.RINGER_MODE_CHANGED_ACTION:
@@ -786,6 +811,13 @@ public class XmppConnectionService extends Service {
                 case ACTION_FCM_TOKEN_REFRESH:
                     refreshAllFcmTokens();
                     break;
+                case ACTION_RENEW_UNIFIED_PUSH_ENDPOINTS:
+                    final String instance = intent.getStringExtra("instance");
+                    final Optional<UnifiedPushBroker.Transport> transport = renewUnifiedPushEndpoints();
+                    if (instance != null && transport.isPresent()) {
+                        unifiedPushBroker.rebroadcastEndpoint(instance, transport.get());
+                    }
+                    break;
                 case ACTION_IDLE_PING:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         scheduleNextIdlePing();
@@ -798,7 +830,7 @@ public class XmppConnectionService extends Service {
                 case Intent.ACTION_SEND:
                     Uri uri = intent.getData();
                     if (uri != null) {
-                        Log.d(Config.LOGTAG, "received uri permission for " + uri.toString());
+                        Log.d(Config.LOGTAG, "received uri permission for " + uri);
                     }
                     return START_STICKY;
             }
@@ -915,6 +947,10 @@ public class XmppConnectionService extends Service {
         return pingNow;
     }
 
+    public boolean processUnifiedPushMessage(final Account account, final Jid transport, final Element push) {
+        return unifiedPushBroker.processPushMessage(account, transport, push);
+    }
+
     public void reinitializeMuclumbusService() {
         mChannelDiscoveryService.initializeMuclumbusService();
     }
@@ -925,9 +961,11 @@ public class XmppConnectionService extends Service {
 
     public boolean isDataSaverDisabled() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            final ConnectivityManager connectivityManager =
+                    (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
             return !connectivityManager.isActiveNetworkMetered()
-                    || connectivityManager.getRestrictBackgroundStatus() == ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED;
+                    || Compatibility.getRestrictBackgroundStatus(connectivityManager)
+                            == ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED;
         } else {
             return true;
         }
@@ -1121,7 +1159,6 @@ public class XmppConnectionService extends Service {
             Log.e(Config.LOGTAG, "unable to initialize security provider", throwable);
         }
         Resolver.init(this);
-        this.mRandom = new SecureRandom();
         updateMemorizingTrustmanager();
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
@@ -1148,6 +1185,7 @@ public class XmppConnectionService extends Service {
         editor.putBoolean(EventReceiver.SETTING_ENABLED_ACCOUNTS, hasEnabledAccounts).apply();
         editor.apply();
         toggleSetProfilePictureActivity(hasEnabledAccounts);
+        reconfigurePushDistributor();
 
         restoreFromDatabase();
 
@@ -1203,9 +1241,10 @@ public class XmppConnectionService extends Service {
 
     private void setupPhoneStateListener() {
         final TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        if (telephonyManager == null || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return;
         }
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     public boolean isPhoneInCall() {
@@ -1382,7 +1421,9 @@ public class XmppConnectionService extends Service {
         final Intent intent = new Intent(this, EventReceiver.class);
         intent.setAction(ACTION_POST_CONNECTIVITY_CHANGE);
         try {
-            final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, s()
+                    ? PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+                    : PendingIntent.FLAG_UPDATE_CURRENT);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtMillis, pendingIntent);
             } else {
@@ -1394,7 +1435,7 @@ public class XmppConnectionService extends Service {
     }
 
     public void scheduleWakeUpCall(int seconds, int requestCode) {
-        final long timeToWake = SystemClock.elapsedRealtime() + (seconds < 0 ? 1 : seconds + 1) * 1000;
+        final long timeToWake = SystemClock.elapsedRealtime() + (seconds < 0 ? 1 : seconds + 1) * 1000L;
         final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (alarmManager == null) {
             return;
@@ -1402,7 +1443,16 @@ public class XmppConnectionService extends Service {
         final Intent intent = new Intent(this, EventReceiver.class);
         intent.setAction("ping");
         try {
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
+            final PendingIntent pendingIntent;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                pendingIntent =
+                        PendingIntent.getBroadcast(
+                                this, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
+            } else {
+                pendingIntent =
+                        PendingIntent.getBroadcast(
+                                this, requestCode, intent, 0);
+            }
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWake, pendingIntent);
         } catch (RuntimeException e) {
             Log.e(Config.LOGTAG, "unable to schedule alarm for ping", e);
@@ -1419,7 +1469,9 @@ public class XmppConnectionService extends Service {
         final Intent intent = new Intent(this, EventReceiver.class);
         intent.setAction(ACTION_IDLE_PING);
         try {
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, s()
+                    ? PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+                    : PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWake, pendingIntent);
         } catch (RuntimeException e) {
             Log.d(Config.LOGTAG, "unable to schedule alarm for idle ping", e);
@@ -1432,7 +1484,7 @@ public class XmppConnectionService extends Service {
         connection.setOnStatusChangedListener(this.statusListener);
         connection.setOnPresencePacketReceivedListener(this.mPresenceParser);
         connection.setOnUnregisteredIqPacketReceivedListener(this.mIqParser);
-        connection.setOnJinglePacketReceivedListener(((a, jp) -> mJingleConnectionManager.deliverPacket(a, jp)));
+        connection.setOnJinglePacketReceivedListener((mJingleConnectionManager::deliverPacket));
         connection.setOnBindListener(this.mOnBindListener);
         connection.setOnMessageAcknowledgeListener(this.mOnMessageAcknowledgedListener);
         connection.addOnAdvancedStreamFeaturesAvailableListener(this.mMessageArchiveService);
@@ -1485,9 +1537,7 @@ public class XmppConnectionService extends Service {
         }
 
         MessagePacket packet = null;
-        final boolean addToConversation = (conversation.getMode() != Conversation.MODE_MULTI
-                || !Patches.BAD_MUC_REFLECTION.contains(account.getServerIdentity()))
-                && !message.edited();
+        final boolean addToConversation = !message.edited();
         boolean saveInDb = addToConversation;
         message.setStatus(Message.STATUS_WAITING);
 
@@ -1793,7 +1843,9 @@ public class XmppConnectionService extends Service {
     public void createBookmark(final Account account, final Bookmark bookmark) {
         account.putBookmark(bookmark);
         final XmppConnection connection = account.getXmppConnection();
-        if (connection.getFeatures().bookmarks2()) {
+        if (connection == null) {
+            Log.d(Config.LOGTAG, account.getJid().asBareJid()+": no connection. ignoring bookmark creation");
+        } else if (connection.getFeatures().bookmarks2()) {
             final Element item = mIqGenerator.publishBookmarkItem(bookmark);
             pushNodeAndEnforcePublishOptions(account, Namespace.BOOKMARKS2, item, bookmark.getJid().asBareJid().toEscapedString(), PublishOptions.persistentWhitelistAccessMaxItems());
         } else if (connection.getFeatures().bookmarksConversion()) {
@@ -1825,7 +1877,7 @@ public class XmppConnectionService extends Service {
         IqPacket iqPacket = new IqPacket(IqPacket.TYPE.SET);
         Element query = iqPacket.query("jabber:iq:private");
         Element storage = query.addChild("storage", "storage:bookmarks");
-        for (Bookmark bookmark : account.getBookmarks()) {
+        for (final Bookmark bookmark : account.getBookmarks()) {
             storage.addChild(bookmark);
         }
         sendIqPacket(account, iqPacket, mDefaultIqHandler);
@@ -1833,8 +1885,8 @@ public class XmppConnectionService extends Service {
 
     private void pushBookmarksPep(Account account) {
         Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": pushing bookmarks via pep");
-        Element storage = new Element("storage", "storage:bookmarks");
-        for (Bookmark bookmark : account.getBookmarks()) {
+        final Element storage = new Element("storage", "storage:bookmarks");
+        for (final Bookmark bookmark : account.getBookmarks()) {
             storage.addChild(bookmark);
         }
         pushNodeAndEnforcePublishOptions(account, Namespace.BOOKMARKS, storage, "current", PublishOptions.persistentWhitelistAccess());
@@ -1902,7 +1954,7 @@ public class XmppConnectionService extends Service {
                     databaseBackend.expireOldMessages(deletionDate);
                 }
                 Log.d(Config.LOGTAG, "restoring roster...");
-                for (Account account : accounts) {
+                for (final Account account : accounts) {
                     databaseBackend.readRoster(account.getRoster());
                     account.initAccountServices(XmppConnectionService.this); //roster needs to be loaded at this stage
                 }
@@ -1922,7 +1974,7 @@ public class XmppConnectionService extends Service {
                         restoreMessages(conversation);
                     }
                 }
-                mNotificationService.finishBacklog(false);
+                mNotificationService.finishBacklog();
                 restoredFromDatabaseLatch.countDown();
                 final long diffMessageRestore = SystemClock.elapsedRealtime() - startMessageRestore;
                 Log.d(Config.LOGTAG, "finished restoring messages in " + diffMessageRestore + "ms");
@@ -1935,16 +1987,16 @@ public class XmppConnectionService extends Service {
     private void restoreMessages(Conversation conversation) {
         conversation.addAll(0, databaseBackend.getMessages(conversation, Config.PAGE_SIZE));
         conversation.findUnsentTextMessages(message -> markMessage(message, Message.STATUS_WAITING));
-        conversation.findUnreadMessages(mNotificationService::pushFromBacklog);
+        conversation.findUnreadMessagesAndCalls(mNotificationService::pushFromBacklog);
     }
 
     public void loadPhoneContacts() {
         mContactMergerExecutor.execute(() -> {
-            Map<Jid, JabberIdContact> contacts = JabberIdContact.load(this);
+            final Map<Jid, JabberIdContact> contacts = JabberIdContact.load(this);
             Log.d(Config.LOGTAG, "start merging phone contacts with roster");
-            for (Account account : accounts) {
-                List<Contact> withSystemAccounts = account.getRoster().getWithSystemAccounts(JabberIdContact.class);
-                for (JabberIdContact jidContact : contacts.values()) {
+            for (final Account account : accounts) {
+                final List<Contact> withSystemAccounts = account.getRoster().getWithSystemAccounts(JabberIdContact.class);
+                for (final JabberIdContact jidContact : contacts.values()) {
                     final Contact contact = account.getRoster().getContact(jidContact.getJid());
                     boolean needsCacheClean = contact.setPhoneContact(jidContact);
                     if (needsCacheClean) {
@@ -1952,7 +2004,7 @@ public class XmppConnectionService extends Service {
                     }
                     withSystemAccounts.remove(contact);
                 }
-                for (Contact contact : withSystemAccounts) {
+                for (final Contact contact : withSystemAccounts) {
                     boolean needsCacheClean = contact.unsetPhoneContact(JabberIdContact.class);
                     if (needsCacheClean) {
                         getAvatarService().clear(contact);
@@ -2301,8 +2353,16 @@ public class XmppConnectionService extends Service {
             final int targetState = enabled ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
             getPackageManager().setComponentEnabledSetting(name, targetState, PackageManager.DONT_KILL_APP);
         } catch (IllegalStateException e) {
-            Log.d(Config.LOGTAG, "unable to toggle profile picture actvitiy");
+            Log.d(Config.LOGTAG, "unable to toggle profile picture activity");
         }
+    }
+
+    public boolean reconfigurePushDistributor() {
+        return this.unifiedPushBroker.reconfigurePushDistributor();
+    }
+
+    public Optional<UnifiedPushBroker.Transport> renewUnifiedPushEndpoints() {
+        return this.unifiedPushBroker.renewUnifiedPushEndpoints();
     }
 
     private void provisionAccount(final String address, final String password) {
@@ -2773,7 +2833,6 @@ public class XmppConnectionService extends Service {
             }
         });
     }
-
     public void joinMuc(Conversation conversation) {
         joinMuc(conversation, null, false);
     }
@@ -2991,6 +3050,71 @@ public class XmppConnectionService extends Service {
         }
     }
 
+    public void deleteAvatar(final Account account) {
+        final AtomicBoolean executed = new AtomicBoolean(false);
+        final Runnable onDeleted =
+                () -> {
+                    if (executed.compareAndSet(false, true)) {
+                        account.setAvatar(null);
+                        databaseBackend.updateAccount(account);
+                        getAvatarService().clear(account);
+                        updateAccountUi();
+                    }
+                };
+        deleteVcardAvatar(account, onDeleted);
+        deletePepNode(account, Namespace.AVATAR_DATA);
+        deletePepNode(account, Namespace.AVATAR_METADATA, onDeleted);
+    }
+
+    public void deletePepNode(final Account account, final String node) {
+        deletePepNode(account, node, null);
+    }
+
+    private void deletePepNode(final Account account, final String node, final Runnable runnable) {
+        final IqPacket request = mIqGenerator.deleteNode(node);
+        sendIqPacket(account, request, (a, packet) -> {
+            if (packet.getType() == IqPacket.TYPE.RESULT) {
+                Log.d(Config.LOGTAG,a.getJid().asBareJid()+": successfully deleted pep node "+node);
+                if (runnable != null) {
+                    runnable.run();
+                }
+            } else {
+                Log.d(Config.LOGTAG,a.getJid().asBareJid()+": failed to delete "+ packet);
+            }
+        });
+    }
+
+    private void deleteVcardAvatar(final Account account, @NonNull final Runnable runnable) {
+        final IqPacket retrieveVcard = mIqGenerator.retrieveVcardAvatar(account.getJid().asBareJid());
+        sendIqPacket(account, retrieveVcard, (a, response) -> {
+            if (response.getType() != IqPacket.TYPE.RESULT) {
+                Log.d(Config.LOGTAG,a.getJid().asBareJid()+": no vCard set. nothing to do");
+                return;
+            }
+            final Element vcard = response.findChild("vCard", "vcard-temp");
+            if (vcard == null) {
+                Log.d(Config.LOGTAG,a.getJid().asBareJid()+": no vCard set. nothing to do");
+                return;
+            }
+            Element photo = vcard.findChild("PHOTO");
+            if (photo == null) {
+                photo = vcard.addChild("PHOTO");
+            }
+            photo.clearChildren();
+            IqPacket publication = new IqPacket(IqPacket.TYPE.SET);
+            publication.setTo(a.getJid().asBareJid());
+            publication.addChild(vcard);
+            sendIqPacket(account, publication, (a1, publicationResponse) -> {
+                if (publicationResponse.getType() == IqPacket.TYPE.RESULT) {
+                    Log.d(Config.LOGTAG,a1.getJid().asBareJid()+": successfully deleted vcard avatar");
+                    runnable.run();
+                } else {
+                    Log.d(Config.LOGTAG, "failed to publish vcard " + publicationResponse.getErrorCondition());
+                }
+            });
+        });
+    }
+
     private boolean hasEnabledAccounts() {
         if (this.accounts == null) {
             return false;
@@ -3167,7 +3291,7 @@ public class XmppConnectionService extends Service {
                     }
                     return false;
                 }
-                final Jid jid = Jid.of(CryptoHelper.pronounceable(getRNG()), server, null);
+                final Jid jid = Jid.of(CryptoHelper.pronounceable(), server, null);
                 final Conversation conversation = findOrCreateConversation(account, jid, true, false, true);
                 joinMuc(conversation, new OnConferenceJoined() {
                     @Override
@@ -3553,7 +3677,7 @@ public class XmppConnectionService extends Service {
                     }
                 });
             } else {
-                Log.d(Config.LOGTAG, "failed to request vcard " + response.toString());
+                Log.d(Config.LOGTAG, "failed to request vcard " + response);
                 callback.onAvatarPublicationFailed(R.string.error_publish_avatar_no_server_support);
             }
         });
@@ -3579,7 +3703,7 @@ public class XmppConnectionService extends Service {
                 if (result.getType() == IqPacket.TYPE.RESULT) {
                     publishAvatarMetadata(account, avatar, options, true, callback);
                 } else if (retry && PublishOptions.preconditionNotMet(result)) {
-                    pushNodeConfiguration(account, "urn:xmpp:avatar:data", options, new OnConfigurationPushed() {
+                    pushNodeConfiguration(account, Namespace.AVATAR_DATA, options, new OnConfigurationPushed() {
                         @Override
                         public void onPushSucceeded() {
                             Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": changed node configuration for avatar node");
@@ -3619,7 +3743,7 @@ public class XmppConnectionService extends Service {
                         callback.onAvatarPublicationSucceeded();
                     }
                 } else if (retry && PublishOptions.preconditionNotMet(result)) {
-                    pushNodeConfiguration(account, "urn:xmpp:avatar:metadata", options, new OnConfigurationPushed() {
+                    pushNodeConfiguration(account, Namespace.AVATAR_METADATA, options, new OnConfigurationPushed() {
                         @Override
                         public void onPushSucceeded() {
                             Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": changed node configuration for avatar meta data node");
@@ -4126,7 +4250,7 @@ public class XmppConnectionService extends Service {
     }
 
     public void updateAccountUi() {
-        for (OnAccountUpdate listener : threadSafeList(this.mOnAccountUpdates)) {
+        for (final OnAccountUpdate listener : threadSafeList(this.mOnAccountUpdates)) {
             listener.onAccountUpdate();
         }
     }
@@ -4264,10 +4388,6 @@ public class XmppConnectionService extends Service {
         }
     }
 
-    public SecureRandom getRNG() {
-        return this.mRandom;
-    }
-
     public MemorizingTrustManager getMemorizingTrustManager() {
         return this.mMemorizingTrustManager;
     }
@@ -4321,7 +4441,7 @@ public class XmppConnectionService extends Service {
         for (final Account account : accounts) {
             if (account.getXmppConnection() != null) {
                 mucServers.addAll(account.getXmppConnection().getMucServers());
-                for (Bookmark bookmark : account.getBookmarks()) {
+                for (final Bookmark bookmark : account.getBookmarks()) {
                     final Jid jid = bookmark.getJid();
                     final String s = jid == null ? null : jid.getDomain().toEscapedString();
                     if (s != null) {
@@ -4402,10 +4522,11 @@ public class XmppConnectionService extends Service {
         for (Account account : getAccounts()) {
             if (account.isOnlineAndConnected() && mPushManagementService.available(account)) {
                 mPushManagementService.registerPushTokenOnServer(account);
-                //TODO renew mucs
             }
         }
     }
+
+
 
     private void sendOfflinePresence(final Account account) {
         Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": sending offline presence");
@@ -4584,7 +4705,7 @@ public class XmppConnectionService extends Service {
         mAvatarService.clear(account);
         sendIqPacket(account, request, (account1, packet) -> {
             if (packet.getType() == IqPacket.TYPE.ERROR) {
-                Log.d(Config.LOGTAG, account1.getJid().asBareJid() + ": unable to modify nick name " + packet.toString());
+                Log.d(Config.LOGTAG, account1.getJid().asBareJid() + ": unable to modify nick name " + packet);
             }
         });
     }

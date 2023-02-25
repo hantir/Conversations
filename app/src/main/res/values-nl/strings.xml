@@ -1,303 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <string name="app_name">Myfriend</string>
-
-    <string-array name="privacy">
-        <item>Everyone</item>
-        <item>Followers</item>
-        <item>No one</item>
-    </string-array>
-
-    <!-- Email -->
-
-
-    <string-array name="encryption_mode_values">
-        <item>AES-128-XTS</item>
-        <item>AES-256-XTS</item>
-    </string-array>
-
-    <string-array name="string_array_resolutions">
-        <item>160x120</item>
-        // 120P
-        <item>320x180</item>
-        // 180P
-        <item>320x240</item>
-        // 240P the default one
-        <item>640x360</item>
-        // 360P
-        <item>640x480</item>
-        // 480P
-        <item>1280x720</item>
-        // 720P
-    </string-array>
-
-    <string-array name="string_array_frame_rate">
-        <item>1</item>
-        <item>7</item>
-        <item>10</item>
-        <item>15</item>
-        // the default one
-        <item>24</item>
-        <item>30</item>
-    </string-array>
-
-    <string-array name="type">
-        <item>Used</item>
-        <item>New</item>
-    </string-array>
-
-    <string-array name="cat">
-        <item>Autos &amp; Vehicles</item>
-        <item>Baby &amp; Children\s Products</item>
-        <item>Beauty Products &amp; Services</item>
-        <item>Computers</item>
-        <item>Electronics</item>
-        <item>Dating</item>
-        <item>Financial</item>
-        <item>Gift</item>
-        <item>Home</item>
-        <item>Others</item>
-    </string-array>
-
-      <!-- Paste Native Ad unit id here for admob -->
-      <!-- Paste Banner Ad unit id here for admob -->
-
-    <string name="msg_connection_error">Verbindingsfout, controleer de netwerkinstellingen of zorg ervoor dat de kanaalnaam/toegangstoken geldig zijn</string>
-    <string name="verification_about">Een geverifieerde badge is een vinkje dat op een account wordt weergegeven om aan te geven dat het account de authentieke aanwezigheid is van een opmerkelijke publieke figuur, beroemdheid, wereldwijd merk of entiteit die het vertegenwoordigt. Als u een verzoek indient, is dit geen garantie dat uw account wordt geverifieerd.</string>
-    <string name="add_members">Leden toevoegen</string>
-    <string name="post">Na</string>
-    <string name="analysis">Analyse</string>
-    <string name="online">Online</string>
-    <string name="products">Producten</string>
-    <string name="messages">Berichten</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="reported_users">Gerapporteerde gebruikers</string>
-    <string name="reported_groups">Gerapporteerde groepen</string>
-    <string name="reported_posts">Gerapporteerde berichten</string>
-    <string name="reported_reels">Gerapporteerde rollen</string>
-    <string name="verification_requests">Verificatieverzoeken</string>
-    <string name="remove_verified_users">Geverifieerde gebruikers verwijderen</string>
-    <string name="warned_users">Gewaarschuwde gebruikers</string>
-    <string name="warned_groups">Gewaarschuwde groepen</string>
-    <string name="ads">Advertenties</string>
-    <string name="post_video_image_amp_text_with_hashtag_and_mention_your_nfriends_shivanshu_wwe">Plaats video, afbeelding</string>
-    <string name="comments">Opmerkingen</string>
-    <string name="like">Leuk vinden</string>
-    <string name="type_a_comment" tools:ignore="TypographyEllipsis">Typ een opmerking...</string>
-    <string name="create_post">Bericht maken</string>
-    <string name="everyone">Iedereen</string>
-    <string name="add_location">Voeg locatie toe</string>
-    <string name="add_to_your_post">Voeg toe aan je bericht</string>
-    <string name="edit_your_email">Bewerk je e-mail</string>
-    <string name="new_email">nieuwe e-mail</string>
-    <string name="bio">Bio</string>
-    <string name="privatetext">Privaat</string>
-    <string name="phone_no">Telefoon nr.</string>
-    <string name="edit_your_phone_no">Bewerk je telefoonnr.</string>
-    <string name="new_phone_no">Nieuw tel.nr.</string>
-    <string name="edit_your_password">Bewerk je wachtwoord</string>
-    <string name="change">Wijziging</string>
-    <string name="hold_for_video_tap_for_photo">Houd vast voor video, tik voor foto</string>
-    <string name="masks">Maskers</string>
-    <string name="effects">Effecten</string>
-    <string name="filters">Filters</string>
-    <string name="feelings">Gevoelens</string>
-    <string name="travelling">Reizend</string>
-    <string name="watching">Aan het kijken</string>
-    <string name="listening">Luisteren</string>
-    <string name="thinking_about">Denken aan</string>
-    <string name="celebration">Viering</string>
-    <string name="looking_for">Zoeken naar</string>
-    <string name="playing">Spelen</string>
-    <string name="happy">Gelukkig</string>
-    <string name="loved">hield van</string>
-    <string name="sad">verdrietig</string>
-    <string name="crying">huilen</string>
-    <string name="angry">Boos</string>
-    <string name="confused">In de war</string>
-    <string name="broken">Gebroken</string>
-    <string name="cool">Koel</string>
-    <string name="funny">Grappig</string>
-    <string name="tired">Moe</string>
-    <string name="shock">Schok</string>
-    <string name="lovely">Lief</string>
-    <string name="sleepy">Slaperig</string>
-    <string name="expressionless">uitdrukkingsloos</string>
-    <string name="blessed">Gezegend</string>
-    <string name="forgot_password">Wachtwoord vergeten</string>
-    <string name="to_reset_your_password_enter_the_registered_email_a_link_will_be_sent_on_this_email_to_reset_your_password">Voer het geregistreerde e-mailadres in om uw wachtwoord opnieuw in te stellen. Er wordt een link naar deze e-mail verzonden om uw wachtwoord opnieuw in te stellen</string>
-    <string name="send_link">Stuur link</string>
-    <string name="type_your_phone_number">Typ je telefoonnummer</string>
-    <string name="generate_otp">OTP genereren</string>
-    <string name="continue_with_email_instead">Ga in plaats daarvan verder met e-mail</string>
-    <string name="send_a_message" tools:ignore="TypographyEllipsis">Stuur een bericht...</string>
-    <string name="my_groups">Mijn groepen</string>
-    <string name="members">Leden</string>
-    <string name="edit_profile">Bewerk profiel</string>
-    <string name="join_request">Deelnameverzoek</string>
-    <string name="cancel_request">Annuleringsaanvraag</string>
-    <string name="what_s_on_your_mind">Waar denk je aan ?</string>
-    <string name="invite_members">Nodig leden uit</string>
-    <string name="set_a_location">Stel een locatie in</string>
-    <string name="login_in_to_continue">Log in om door te gaan</string>
-    <string name="login">Log in</string>
-    <string name="create_new_account">Creëer een nieuw account</string>
-    <string name="menu">Menu</string>
-    <string name="marketplace">Marktplaats</string>
-    <string name="night_mode">Nachtstand</string>
-    <string name="photo_editor">Fotobewerker</string>
-    <string name="video_editor">Video bewerker</string>
-    <string name="verification">Verificatie</string>
-    <string name="policy">Het beleid</string>
-    <string name="edit_password">Wachtwoord bewerken</string>
-    <string name="edit_number">Nummer bewerken</string>
-    <string name="edit_mail">E-mail bewerken</string>
-    <string name="near_by">In de buurt</string>
-    <string name="log_out">Uitloggen</string>
-    <string name="admin_panel">Administratie Paneel</string>
-    <string name="notifications">Meldingen</string>
-    <string name="party_post">Feestbericht</string>
-    <string name="post_about_your_watch_party">Post over je kijkfeestje</string>
-    <string name="what_s_on_your_mind_mention_hashtag">Waar denk je aan ? @vermelden</string>
-    <string name="set_watch_party_privacy">Privacy van kijkfeest instellen</string>
-    <string name="private_watch_party">Private Watch Party</string>
-    <string name="public_watch_party">Openbare kijkpartij</string>
-    <string name="sell_product">Product verkopen</string>
-    <string name="title">Titel</string>
-    <string name="price">Prijs</string>
-    <string name="category">Categorie</string>
-    <string name="condition">Voorwaarde</string>
-    <string name="description">Beschrijving</string>
-    <string name="post_reel">Post Reel</string>
-    <string name="describe_you_video_mention_hashtag">Beschrijf je video @Mention</string>
-    <string name="privacy">Privacy</string>
-    <string name="allow_comments">Sta reacties toe</string>
-    <string name="remove">Verwijderen</string>
-    <string name="known_as">Bekend als</string>
-    <string name="government_id">Overheids-ID</string>
-    <string name="poke">Por</string>
-    <string name="reject">Afwijzen</string>
-    <string name="apps">Apps</string>
-    <string name="download">Downloaden</string>
-    <string name="copy">Kopiëren</string>
-    <string name="liked_by">Interessant gevonden door</string>
-    <string name="rainy_shoes">Regenachtige schoenen</string>
-    <string name="camera">Camera</string>
-    <string name="add_audio">Audio toevoegen</string>
-    <string name="background_colour">Achtergrond kleur</string>
-    <string name="add_gif">GIF toevoegen</string>
-    <string name="feeling_activity">Gevoel /Activiteit</string>
-    <string name="add_reels">Rollen toevoegen</string>
-    <string name="go_live">Ga leven</string>
-    <string name="create_podcast">Podcast maken</string>
-    <string name="add_stories">Verhalen toevoegen</string>
-    <string name="views">Keer bekeken</string>
-    <string name="podcast">Podcast</string>
-    <string name="paste_video_link_from_web">Videolink van internet plakken</string>
-    <string name="supports_youtube_amp_dailymotion">Ondersteunt YouTube</string>
-    <string name="link">Koppeling</string>
-    <string name="upload_any_video_you_want">Upload elke gewenste video</string>
-    <string name="textview">Tekstweergave</string>
-    <string name="paste_the_meeting_id">Plak de vergadering-ID</string>
-    <string name="meeting_id">Vergaderings-ID</string>
-    <string name="add_post">Bericht toevoegen</string>
-    <string name="report">Verslag doen van</string>
-    <string name="document">Document</string>
-    <string name="for_you">Voor jou</string>
-    <string name="following">Volgend</string>
-    <string name="no_reels">Geen rollen</string>
-    <string name="followers">Volgers</string>
-    <string name="send_a_comment" tools:ignore="TypographyEllipsis">Stuur een reactie...</string>
-    <string name="live">Live</string>
-    <string name="delete_photo">Verwijder foto</string>
-    <string name="create_a_new_meeting">Een nieuwe vergadering maken</string>
-    <string name="upload_photo">Upload foto</string>
-    <string name="upload_video">Upload video</string>
-    <string name="liked">Leuk gevonden</string>
-    <string name="likes">Vind ik leuk</string>
-    <string name="add_image">Voeg afbeelding toe</string>
-    <string name="add_video">Voeg video toe</string>
-    <string name="sent_stickers_gif">Verzonden stickers</string>
-    <string name="add_recorder">Recorder toevoegen</string>
-    <string name="create_room_meeting">Ruimte /vergadering maken</string>
-    <string name="add_document">Document toevoegen</string>
-    <string name="time">Tijd -</string>
-    <string name="full_screen">Volledig scherm</string>
-    <string name="post_background">Achtergrond posten</string>
-    <string name="announcement">Aankondiging</string>
-    <string name="send">Versturen</string>
-    <string name="create_reel">Maak een rol</string>
-    <string name="sell_something">iets verkopen</string>
-    <string name="video_paused">Video onderbroken</string>
-    <string name="muted">Gedempt</string>
-    <string name="type_6_digit_otp">Typ 6-cijferige OTP</string>
-    <string name="enter_otp">Voer OTP in</string>
-    <string name="verify_otp">Verifieer OTP</string>
-    <string name="full_name">Voor-en achternaam</string>
-    <string name="government_issued_photo_id_link">Door de overheid uitgegeven link voor identiteitsbewijs met foto</string>
-    <string name="follow">Volgen</string>
-    <string name="unfollow">Niet meer volgen</string>
-    <string name="trending">Trending</string>
-    <string name="music">Muziek</string>
-    <string name="sports">Sport</string>
-    <string name="memes">Memes</string>
-    <string name="vines">wijnstokken</string>
-    <string name="tv_amp_movies">TV</string>
-    <string name="animals">Dieren</string>
-    <string name="diy">doe-het-zelf</string>
-    <string name="beauty">Schoonheid</string>
-    <string name="art">Kunst</string>
-    <string name="food">Voedsel</string>
-    <string name="style">Stijl</string>
-    <string name="decor">Decor</string>
-    <string name="politics">Politiek</string>
-    <string name="highlight">Markeer</string>
-    <string name="profile_photo">Profielfoto</string>
-    <string name="upload_group_photo">Groepsfoto uploaden</string>
-    <string name="upload">Uploaden</string>
-    <string name="cover_photo">Omslagfoto</string>
-    <string name="upload_group_cover">Groepsomslag uploaden</string>
-    <string name="create_group">Groep maken</string>
-    <string name="fill_details_to_continue">Vul details in om door te gaan</string>
-    <string name="watch_party">Kijk feest</string>
-    <string name="web">Web</string>
-    <string name="sign_up_to_continue">Meld je aan om door te gaan</string>
-    <string name="email">E-mail</string>
-    <string name="already_have_an_account_login">Heb je al een account? Log in</string>
-    <string name="send_to">Verzenden naar</string>
-    <string name="add_to_reels">Toevoegen aan rollen</string>
-    <string name="add_to_story">Toevoegen aan verhaal</string>
-    <string name="add_to_post">Toevoegen aan bericht</string>
-    <string name="send_to_user">Verzenden naar gebruiker</string>
-    <string name="send_to_group">Stuur naar groep</string>
-    <string name="add_to_product">Toevoegen aan product</string>
-    <string name="edit_video">Bewerk video</string>
-    <string name="edit_image">Bewerk afbeelding</string>
-    <string name="users">Gebruikers</string>
-    <string name="posts">Berichten</string>
-    <string name="groups">Groepen</string>
-    <string name="market">Markt</string>
-    <string name="nearby">Dichtbij</string>
-    <string name="load_more">Meer laden</string>
-    <string name="saved">Opgeslagen</string>
-    <string name="reels">Rollen</string>
-    <string name="nothing_found">niets gevonden</string>
-    <string name="calling" tools:ignore="TypographyEllipsis">Roeping...</string>
-    <string name="new_account">Nieuw account</string>
-    <string name="name">Naam</string>
-    <string name="type_profile_details">Typ profieldetails</string>
-    <string name="sign_up">Inschrijven</string>
-    <string name="meetings">Vergaderingen</string>
-    <string name="terms_amp_condtitions">voorwaarden</string>
-    <string name="change_theme">Thema veranderen</string>
-    <string name="send_gif">GIF verzenden</string>
-    <string name="dim_mode">Dim modus</string>
-
-<string name="action_settings">Instellingen</string>
+<resources>
+    <string name="action_settings">Instellingen</string>
     <string name="action_add">Nieuw gesprek</string>
     <string name="action_accounts">Accounts beheren</string>
     <string name="action_account">Account beheren</string>
+    <string name="action_end_conversation">Gesprek sluiten</string>
     <string name="action_contact_details">Contactgegevens</string>
     <string name="action_muc_details">Gespreksgegevens</string>
     <string name="channel_details">Kanaalinformatie</string>
@@ -322,6 +29,13 @@
     <string name="just_now">zojuist</string>
     <string name="minute_ago">1 min. geleden</string>
     <string name="minutes_ago">%d min. geleden</string>
+    <plurals name="x_unread_conversations">
+        <item quantity="one">%d ongelezen gesprek</item>
+
+    
+        <item quantity="other">%d ongelezen gesprekken</item>
+
+    </plurals>
     <string name="sending">versturen…</string>
     <string name="message_decrypting">Bericht aan het ontsleutelen. Even geduld…</string>
     <string name="pgp_message">OpenPGP-versleuteld bericht</string>
@@ -357,6 +71,8 @@
     <string name="unblock">Deblokkeren</string>
     <string name="save">Opslaan</string>
     <string name="ok">Oké</string>
+    <string name="crash_report_title">%1$s is gecrasht</string>
+    <string name="crash_report_message">Door crashrapportages via uw XMPP account te sturen help je de ontwikkeling van %1$s.</string>
     <string name="send_now">Nu versturen</string>
     <string name="send_never">Niet opnieuw vragen</string>
     <string name="problem_connecting_to_account">Verbinding maken met account mislukt</string>
@@ -381,6 +97,7 @@
     <string name="send_omemo_message">Verstuur OMEMO-versleuteld bericht</string>
     <string name="send_omemo_x509_message">Verstuur v\\OMEMO-versleuteld bericht</string>
     <string name="send_pgp_message">Verstuur OpenPGP-versleuteld bericht</string>
+    <string name="your_nick_has_been_changed">Nieuwe bijnaam in gebruik</string>
     <string name="send_unencrypted">Verstuur onversleuteld</string>
     <string name="decryption_failed">Ontsleutelen mislukt. Misschien heb je niet de juiste private sleutel.</string>
     <string name="openkeychain_required">OpenKeychain</string>
@@ -406,6 +123,7 @@
     <string name="pref_never_send_crash">Verstuur nooit crashrapportages</string>
     <string name="pref_confirm_messages">Bevestig berichten</string>
     <string name="pref_confirm_messages_summary">Laat je contacten weten wanneer je hun berichten ontvangen en gelezen hebt</string>
+    <string name="pref_prevent_screenshots">Voorkom schermafdrukken</string>
     <string name="pref_ui_options">Gebruikersomgeving</string>
     <string name="openpgp_error">OpenKeychain veroorzaakte een fout.</string>
     <string name="bad_key_for_encryption">Slechte sleutel voor versleuteling.</string>
@@ -434,7 +152,9 @@
     <string name="account_status_regis_fail">Registratie mislukt</string>
     <string name="account_status_regis_conflict">Gebruikersnaam is al in gebruik</string>
     <string name="account_status_regis_success">Registratie voltooid</string>
+    <string name="account_status_regis_invalid_token">Ongeldig registratietoken</string>
     <string name="account_status_tls_error">TLS-onderhandeling mislukt</string>
+    <string name="account_status_tls_error_domain">Domein niet verifieerbaar</string>
     <string name="account_status_policy_violation">Beleidsschending</string>
     <string name="account_status_incompatible_server">Incompatibele server</string>
     <string name="account_status_stream_error">Fout bij stream</string>
@@ -449,6 +169,7 @@
     <string name="mgmt_account_publish_pgp">OpenPGP-publieke sleutel publiceren</string>
     <string name="unpublish_pgp">OpenPGP-publieke sleutel verwijderen</string>
     <string name="unpublish_pgp_message">Weet je zeker dat je je OpenPGP-publieke sleutel uit je aanwezigheidsaankondiging wil verwijderen?\nJe contacten zullen je geen OpenPGP-versleutelde berichten meer kunnen sturen.</string>
+    <string name="openpgp_has_been_published">OpenPGP-publieke sleutel gepubliceerd.</string>
     <string name="mgmt_account_enable">Account inschakelen</string>
     <string name="mgmt_account_are_you_sure">Weet je het zeker?</string>
     <string name="attach_record_voice">Stem opnemen</string>
@@ -457,6 +178,7 @@
     <string name="account_settings_example_jabber_id">gebruikersnaam@voorbeeld.nl</string>
     <string name="password">Wachtwoord</string>
     <string name="invalid_jid">Dit is geen geldig XMPP-adres</string>
+    <string name="error_out_of_memory">Geen geheugen beschikbaar. Afbeelding is te groot</string>
     <string name="add_phone_book_text">Wil je %s toevoegen aan je adresboek?</string>
     <string name="server_info_show_more">Server-info</string>
     <string name="server_info_mam">XEP-0313: MAM</string>
@@ -472,12 +194,18 @@
     <string name="server_info_unavailable">niet beschikbaar</string>
     <string name="missing_public_keys">Ontbrekende publieke sleutel-aankondigingen</string>
     <string name="last_seen_now">zojuist voor het laatst gezien</string>
+    <string name="last_seen_min">een minuut geleden voor het laatst gezien</string>
     <string name="last_seen_mins">%d minuten geleden voor het laatst gezien</string>
+    <string name="last_seen_hour">een uur geleden voor het laatst gezien</string>
     <string name="last_seen_hours">%d uur geleden voor het laatst gezien</string>
+    <string name="last_seen_day">een dag geleden voor het laatst gezien</string>
     <string name="last_seen_days">%d dagen geleden voor het laatst gezien</string>
+    <string name="openpgp_messages_found">Nieuw OpenPGP-versleuteld bericht gevonden</string>
     <string name="openpgp_key_id">OpenPGP-sleutel-ID</string>
     <string name="omemo_fingerprint">OMEMO-vingerafdruk</string>
     <string name="omemo_fingerprint_x509">v\\OMEMO-vingerafdruk</string>
+    <string name="omemo_fingerprint_selected_message">OMEMO-vingerafdruk (herkomst bericht)</string>
+    <string name="omemo_fingerprint_x509_selected_message">v\\OMEMO-vingerafdruk (herkomst bericht)</string>
     <string name="other_devices">Andere apparaten</string>
     <string name="trust_omemo_fingerprints">Vertrouw OMEMO-vingerafdrukken</string>
     <string name="fetching_keys">Sleutels ophalen…</string>
@@ -512,18 +240,23 @@
     <string name="add_back">Ook toevoegen</string>
     <string name="contact_has_read_up_to_this_point">%s heeft tot hier gelezen</string>
     <string name="contacts_have_read_up_to_this_point">%s hebben tot hier gelezen</string>
+    <string name="contacts_and_n_more_have_read_up_to_this_point">%1$s en nog %2$d meer hebben tot hier gelezen</string>
     <string name="everyone_has_read_up_to_this_point">Iedereen heeft tot hier gelezen</string>
     <string name="publish">Publiceer</string>
+    <string name="touch_to_choose_picture">Tik op avatar om een foto uit de galerij te kiezen</string>
     <string name="publishing">Publiceren…</string>
     <string name="error_publish_avatar_server_reject">De server weigerde de publicatie van je afbeelding</string>
+    <string name="error_publish_avatar_converting">Kon de afbeelding niet converteren</string>
     <string name="error_saving_avatar">Fout bij opslaan van avatar</string>
     <string name="or_long_press_for_default">(Of hou lang ingedrukt om de oorspronkelijke terug te zetten)</string>
+    <string name="error_publish_avatar_no_server_support">Je server ondersteunt de publicatie van avatars niet</string>
     <string name="private_message">gefluisterd</string>
     <string name="private_message_to">naar %s</string>
     <string name="send_private_message_to">Privébericht sturen naar %s</string>
     <string name="connect">Verbind</string>
     <string name="account_already_exists">Deze account bestaat al</string>
     <string name="next">Volgende</string>
+    <string name="server_info_session_established">Sessie is tot stand gekomen</string>
     <string name="skip">Overslaan</string>
     <string name="disable_notifications">Meldingen uitschakelen</string>
     <string name="enable">Inschakelen</string>
@@ -543,7 +276,7 @@
     <string name="title_pref_enable_quiet_hours">Stille uren inschakelen</string>
     <string name="pref_quiet_hours_summary">Tijdens stille uren worden meldingen onderdrukt</string>
     <string name="pref_expert_options_other">Andere</string>
-    <string name="pref_autojoin">Synchroniseren met bladwijzers</string>
+    <string name="toast_message_omemo_fingerprint">OMEMO-vingerafdruk gekopieerd naar klembord</string>
     <string name="conference_banned">Je bent verbannen uit dit groepsgesprek</string>
     <string name="conference_members_only">Dit groepsgesprek is enkel voor leden</string>
     <string name="conference_resource_constraint">Bronbeperking</string>
@@ -591,6 +324,7 @@
     <string name="x_file_offered_for_download">%s aangeboden om te downloaden</string>
     <string name="cancel_transmission">Bestandsoverdracht annuleren</string>
     <string name="file_transmission_cancelled">bestandsoverdracht geannuleerd</string>
+    <string name="no_application_found_to_open_file">Geen app om bestand te openen</string>
     <string name="pref_show_dynamic_tags">Dynamische tags</string>
     <string name="pref_show_dynamic_tags_summary">Toon enkel-lezen tags onder contacten</string>
     <string name="enable_notifications">Meldingen inschakelen</string>
@@ -608,6 +342,7 @@
     <string name="change_password">Wachtwoord wijzigen</string>
     <string name="current_password">Huidig wachtwoord</string>
     <string name="new_password">Nieuw wachtwoord</string>
+    <string name="password_should_not_be_empty">Wachtwoord mag niet leeg zijn</string>
     <string name="enable_all_accounts">Alle accounts inschakelen</string>
     <string name="disable_all_accounts">Alle accounts uitschakelen</string>
     <string name="perform_action_with">Actie uitvoeren met</string>
@@ -664,6 +399,7 @@
     <string name="pref_chat_states_summary">Laat je contacten weten wanneer je ze een nieuw bericht schrijft</string>
     <string name="send_location">Locatie versturen</string>
     <string name="show_location">Locatie weergeven</string>
+    <string name="no_application_found_to_display_location">Geen app om locatie weer te geven</string>
     <string name="location">Locatie</string>
     <string name="title_undo_swipe_out_conversation">Gesprek gesloten</string>
     <string name="title_undo_swipe_out_group_chat">Privégroep verlaten</string>
@@ -1054,4 +790,38 @@
     <string name="local_server">Lokale server</string>
     <string name="category_about">Over</string>
     <string name="rtp_state_declined_or_busy">Bezig</string>
-</resources>
+    <string name="video_call">Videogesprek</string>
+    <string name="microphone_unavailable">Je microfoon is niet beschikbaar</string>
+    <string name="only_one_call_at_a_time">Je kunt slechts één gesprek tegelijk voeren.</string>
+    <string name="return_to_ongoing_call">Terug naar lopend gesprek</string>
+    <string name="could_not_switch_camera">Kon camera niet wisselen</string>
+    <string name="add_to_favorites">Bovenaan vastzetten</string>
+    <string name="remove_from_favorites">Bovenaan losmaken</string>
+    <string name="could_not_correct_message">Kon bericht niet corrigeren</string>
+    <string name="search_all_conversations">Alle gesprekken</string>
+    <string name="search_this_conversation">Dit gesprek</string>
+    <string name="your_avatar">Je avatar</string>
+    <string name="avatar_for_x">Avatar voor %s</string>
+    <string name="encrypted_with_omemo">Versleuteld met OMEMO</string>
+    <string name="not_encrypted">Onversleuteld</string>
+    <string name="play_audio">Speel audio</string>
+    <string name="pause_audio">Pauzeer audio</string>
+    <plurals name="view_users">
+        <item quantity="one">Bekijk %1$d deelnemer</item>
+        <item quantity="other">Bekijk %1$d deelnemers</item>
+    </plurals>
+    <plurals name="some_messages_could_not_be_delivered">
+        <item quantity="one">Een bericht kon niet worden afgeleverd</item>
+        <item quantity="other">Sommige berichten konden niet worden afgeleverd</item>
+    </plurals>
+    <string name="failed_deliveries">Mislukte afleveringen</string>
+    <string name="more_options">Meer opties</string>
+    <string name="no_application_found">Geen applicatie gevonden</string>
+    <string name="invite_to_app">Nodig uit bij Conversations</string>
+    <string name="unable_to_parse_invite">Kan uitnodiging niet verwerken</string>
+    <string name="no_active_accounts_support_this">Geen actieve accounts ondersteunen deze functie</string>
+    <string name="backup_started_message">De backup is gestart. Je krijgt een bericht als het voltooid is.</string>
+    <string name="unable_to_enable_video">Kan video niet schakelen.</string>
+    <string name="plain_text_document">Onversleuteld document</string>
+    <string name="account_registrations_are_not_supported">Accountregistraties zijn niet ondersteund</string>
+    </resources>

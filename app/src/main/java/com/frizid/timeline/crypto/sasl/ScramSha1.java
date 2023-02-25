@@ -1,30 +1,28 @@
-package com.frizid.timeline.crypto.sasl;
+package eu.siacs.conversations.crypto.sasl;
 
-import org.bouncycastle.crypto.Digest;
-import org.bouncycastle.crypto.digests.SHA1Digest;
-import org.bouncycastle.crypto.macs.HMac;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 
-import java.security.SecureRandom;
-
-import com.frizid.timeline.entities.Account;
-import com.frizid.timeline.xml.TagWriter;
+import eu.siacs.conversations.entities.Account;
 
 public class ScramSha1 extends ScramMechanism {
 
     public static final String MECHANISM = "SCRAM-SHA-1";
 
-    @Override
-    protected HMac getHMAC() {
-        return new HMac(new SHA1Digest());
+    public ScramSha1(final Account account) {
+        super(account, ChannelBinding.NONE);
     }
 
     @Override
-    protected Digest getDigest() {
-        return new SHA1Digest();
+    protected HashFunction getHMac(final byte[] key) {
+        return (key == null || key.length == 0)
+                ? Hashing.hmacSha1(EMPTY_KEY)
+                : Hashing.hmacSha1(key);
     }
 
-    public ScramSha1(final TagWriter tagWriter, final Account account, final SecureRandom rng) {
-        super(tagWriter, account, rng);
+    @Override
+    protected HashFunction getDigest() {
+        return Hashing.sha1();
     }
 
     @Override
